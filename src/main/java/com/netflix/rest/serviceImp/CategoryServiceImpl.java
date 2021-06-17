@@ -1,6 +1,8 @@
 package com.netflix.rest.serviceImp;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,14 +15,15 @@ import com.netflix.rest.service.CategoryServiceI;
 /**
  * The Class CategoryServiceImpl.
  */
+
 @Service
-@Qualifier("CategoryServiceImpl")
+@Qualifier("CategoriesServiceImpl")
 public class CategoryServiceImpl implements CategoryServiceI {
 
-	/** The category repository. */
+	/** The categories repository. */
 	@Autowired
-	@Qualifier("CategoryRepository")
-	public CategoryRepository categoryRepository;
+	@Qualifier("CategoriesRepository")
+	private CategoryRepository categoryRepository;
 
 	/**
 	 * List all categories.
@@ -29,7 +32,11 @@ public class CategoryServiceImpl implements CategoryServiceI {
 	 */
 	@Override
 	public List<Category> listAllCategories() {
-		return this.categoryRepository.findAll();
+		return categoryRepository.findAll();
 	}
 
+	@Override
+	public Set<Category> listCategoriesByIds(Set<Long> listCategoriesIds) {
+		return new HashSet<>(categoryRepository.findAllById(listCategoriesIds));
+	}
 }

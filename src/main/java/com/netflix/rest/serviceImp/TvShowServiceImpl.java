@@ -5,30 +5,31 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
 import com.netflix.rest.model.TvShow;
 import com.netflix.rest.repository.CategoryRepository;
 import com.netflix.rest.repository.TvShowRepository;
 import com.netflix.rest.service.TvShowServiceI;
 
 /**
- * The Class TvShowServiceImpl.
+ * The Class TvShowsServiceImpl.
  */
 @Service
-@Qualifier("TvShowServiceImpl")
+@Qualifier("TvShowsServiceImpl")
 public class TvShowServiceImpl implements TvShowServiceI {
 
-	/** The tv show repository. */
+	/** The tv shows repository. */
 	@Autowired
-	@Qualifier("TvShowRepository")
-	public TvShowRepository tvShowRepository;
+	@Qualifier("TvShowsRepository")
+	private TvShowRepository tvShowRepository;
 
-	/** The category repository. */
+	/** The categories repository. */
 	@Autowired
-	@Qualifier("CategoryRepository")
-	public CategoryRepository categoryRepository;
+	@Qualifier("CategoriesRepository")
+	private CategoryRepository categoryRepository;
 
 	/**
-	 * List tv show by category.
+	 * Find by category id.
 	 *
 	 * @param categoryId the category id
 	 * @return the list
@@ -36,6 +37,28 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	@Override
 	public List<TvShow> listTvShowByCategory(Long categoryId) {
 		return tvShowRepository.findByCategory(categoryRepository.findById(categoryId).get());
+	}
+
+	/**
+	 * Find by id.
+	 *
+	 * @param tvShowId the tv show id
+	 * @return the tv shows
+	 */
+	@Override
+	public TvShow findById(Long tvShowId) {
+		return tvShowRepository.findById(tvShowId).get();
+	}
+
+	/**
+	 * Update tv shows.
+	 *
+	 * @param tvShow the tv show
+	 * @return the tv show
+	 */
+	@Override
+	public TvShow updateTvShows(TvShow tvShow) {
+		return tvShowRepository.save(tvShow);
 	}
 
 }

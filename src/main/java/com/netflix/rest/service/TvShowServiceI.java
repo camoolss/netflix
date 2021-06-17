@@ -2,7 +2,6 @@ package com.netflix.rest.service;
 
 import java.util.List;
 
-import com.netflix.rest.model.Category;
 import com.netflix.rest.model.TvShow;
 
 /**
@@ -17,5 +16,21 @@ public interface TvShowServiceI {
 	 * @return the list
 	 */
 	List<TvShow> listTvShowByCategory(Long category);
+
+	/**
+	 * Find by id.
+	 *
+	 * @param tvShowId the tv show id
+	 * @return the tv shows
+	 */
+	TvShow findById(Long tvShowId);
+
+	/**
+	 * Update tv show.
+	 *
+	 * @param tvShow the tv show
+	 * @return the tv shows
+	 */
+	TvShow updateTvShows(TvShow tvShow);
 
 }

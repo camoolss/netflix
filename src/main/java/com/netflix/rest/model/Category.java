@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -49,18 +50,22 @@ public class Category implements Serializable {
 	/** The id. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", length = 20)
+	@Column(name = "ID")
 	@NotNull
 	@JsonIgnore
 	private Long id;
 	
 	/** The name. */
-	@Column(name = "NAME", unique = true, length = 60)
+	@Column(name = "NAME")
 	@NotNull
 	private String name;
 	
 	/** The tv show list. */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category")
-	private List<TvShow> tvShowList;
+	//@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "category")
+	//private List<TvShow> tvShowList;
+	
+	/** The tv shows. */
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy="categories")
+	private List<TvShow> tvShow;
 
 }

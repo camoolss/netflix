@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.rest.model.Category;
@@ -20,7 +19,7 @@ public class CategoryController {
 	/** The category service. */
 	@Autowired
 	@Qualifier("CategoryServiceImpl")
-	public CategoryServiceI categoryService;
+	private CategoryServiceI categoryService;
 
 	/**
 	 * List all category.
