@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * The Class Seasons.
+ * The Class Season.
  */
 @Entity
 @Table(name = "SEASONS")
@@ -43,7 +43,7 @@ import lombok.Setter;
  */
 @AllArgsConstructor
 @Builder
-public class Seasons implements Serializable {
+public class Season implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 18080239613616000L;
@@ -71,6 +71,6 @@ public class Seasons implements Serializable {
 
 	/** The chapters. */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "seasons")
-	private List<Chapters> chapters;
+	private List<Chapter> chapters;
 
 }

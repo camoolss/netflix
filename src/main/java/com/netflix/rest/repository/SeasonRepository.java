@@ -6,15 +6,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.netflix.rest.model.Seasons;
+import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
 
 /**
- * The Interface SeasonsRepository.
+ * The Interface SeasonRepository.
  */
 @Repository
-@Qualifier("SeasonsRepository")
-public interface SeasonsRepository extends JpaRepository<Seasons, Long> {
+@Qualifier("SeasonRepository")
+public interface SeasonRepository extends JpaRepository<Season, Long> {
 
 	/**
 	 * Find by tv shows.
@@ -22,7 +22,7 @@ public interface SeasonsRepository extends JpaRepository<Seasons, Long> {
 	 * @param tvShow the tv show
 	 * @return the list
 	 */
-	List<Seasons> findByTvShows(TvShow tvShow);
+	List<Season> findByTvShow(TvShow tvShow);
 
 	/**
 	 * Find by tv shows and number.
@@ -31,5 +31,5 @@ public interface SeasonsRepository extends JpaRepository<Seasons, Long> {
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
-	List<Seasons> findByTvShowsAndNumber(TvShow tvShow, int seasonNumber);
+	List<Season> findByTvShowAndNumber(TvShow tvShow, int seasonNumber);
 }

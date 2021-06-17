@@ -2,12 +2,12 @@ package com.netflix.rest.service;
 
 import java.util.List;
 
-import com.netflix.rest.model.Chapters;
+import com.netflix.rest.model.Chapter;
 
 /**
- * The Interface ChaptersServiceI.
+ * The Interface ChapterServiceI.
  */
-public interface ChaptersServiceI {
+public interface ChapterServiceI {
 
 	/**
 	 * Find by tv shows and number.
@@ -16,7 +16,7 @@ public interface ChaptersServiceI {
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
-	List<Chapters> findByTvShowsAndNumber(long tvshowId, int seasonNumber);
+	List<Chapter> findByTvShowAndNumber(long tvshowId, int seasonNumber);
 
 	/**
 	 * Find by tv shows and number and chapter number.
@@ -26,5 +26,5 @@ public interface ChaptersServiceI {
 	 * @param chapterNumber the chapter number
 	 * @return the chapters
 	 */
-	Chapters findByTvShowsAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber);
+	Chapter findByTvShowAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber);
 }

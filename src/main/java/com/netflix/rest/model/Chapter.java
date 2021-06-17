@@ -41,7 +41,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
-public class Chapters implements Serializable {
+public class Chapter implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -69,6 +69,6 @@ public class Chapters implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "season_Id", referencedColumnName = "ID")
 	@JsonIgnore
-	private Seasons seasons;
+	private Season seasons;
 
 }

@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.netflix.rest.model.Seasons;
+import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
-import com.netflix.rest.service.SeasonsServiceI;
+import com.netflix.rest.service.SeasonServiceI;
 
 /**
  * The Class SeasonController.
@@ -20,34 +20,34 @@ public class SeasonController {
 
 	/** The season service. */
 	@Autowired
-	@Qualifier("SeasonsServiceImpl")
-	private SeasonsServiceI seasonService;
+	@Qualifier("SeasonServiceImpl")
+	private SeasonServiceI seasonService;
 
 	/**
 	 * List seasons by id.
 	 *
-	 * @param seriesId the series id
+	 * @param serieId the series id
 	 * @return the list
 	 */
-	@GetMapping("/series/{seriesId}/seasons")
-	public List<Seasons> listSeasonsById(@PathVariable Long seriesId) {
-		final TvShow tvShows = new TvShow();
-		tvShows.setId(seriesId);
-		return seasonService.findByTvShows(tvShows);
+	@GetMapping("/serie/{serieId}/season")
+	public List<Season> listSeasonById(@PathVariable Long serieId) {
+		final TvShow tvShow = new TvShow();
+		tvShow.setId(serieId);
+		return seasonService.findByTvShow(tvShow);
 	}
 
 	/**
 	 * List tv shows and number.
 	 *
-	 * @param seriesId the series id
+	 * @param serieId the series id
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
-	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}")
-	public List<Seasons> listTvShowsAndNumber(@PathVariable Long seriesId, @PathVariable int seasonNumber) {
-		final TvShow tvShows = new TvShow();
-		tvShows.setId(seriesId);
-		return seasonService.findByTvShowsAndNumber(tvShows, seasonNumber);
+	@GetMapping("/serie/{serieId}/season/{seasonNumber}")
+	public List<Season> listTvShowAndNumber(@PathVariable Long serieId, @PathVariable int seasonNumber) {
+		final TvShow tvShow = new TvShow();
+		tvShow.setId(serieId);
+		return seasonService.findByTvShowAndNumber(tvShow, seasonNumber);
 	}
 
 }

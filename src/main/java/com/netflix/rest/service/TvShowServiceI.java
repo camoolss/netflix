@@ -31,6 +31,6 @@ public interface TvShowServiceI {
 	 * @param tvShow the tv show
 	 * @return the tv shows
 	 */
-	TvShow updateTvShows(TvShow tvShow);
+	TvShow updateTvShow(TvShow tvShow);
 
 }

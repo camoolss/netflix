@@ -12,20 +12,20 @@ import com.netflix.rest.repository.TvShowRepository;
 import com.netflix.rest.service.TvShowServiceI;
 
 /**
- * The Class TvShowsServiceImpl.
+ * The Class TvShowServiceImpl.
  */
 @Service
-@Qualifier("TvShowsServiceImpl")
+@Qualifier("TvShowServiceImpl")
 public class TvShowServiceImpl implements TvShowServiceI {
 
 	/** The tv shows repository. */
 	@Autowired
-	@Qualifier("TvShowsRepository")
+	@Qualifier("TvShowRepository")
 	private TvShowRepository tvShowRepository;
 
-	/** The categories repository. */
+	/** The category repository. */
 	@Autowired
-	@Qualifier("CategoriesRepository")
+	@Qualifier("CategoryRepository")
 	private CategoryRepository categoryRepository;
 
 	/**
@@ -57,7 +57,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	 * @return the tv show
 	 */
 	@Override
-	public TvShow updateTvShows(TvShow tvShow) {
+	public TvShow updateTvShow(TvShow tvShow) {
 		return tvShowRepository.save(tvShow);
 	}
 

@@ -97,8 +97,8 @@ public class TvShow implements Serializable {
 	private Category categoryId;
 
 	/** The seasons. */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShows")
-	private List<Seasons> seasons;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShow")
+	private List<Season> seasons;
 
 	/** The advertising. */
 	@Column(name = "ADVERTISING")
@@ -106,6 +106,6 @@ public class TvShow implements Serializable {
 
 	@JoinTable(name = "CATEGORY_TVSHOWS", joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Category> categories;
+	private List<Category> category;
 
 }

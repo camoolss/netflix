@@ -2,28 +2,28 @@ package com.netflix.rest.service;
 
 import java.util.List;
 
-import com.netflix.rest.model.Seasons;
+import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
 
 /**
- * The Interface SeasonsServiceI.
+ * The Interface SeasonServiceI.
  */
-public interface SeasonsServiceI {
+public interface SeasonServiceI {
 
 	/**
 	 * List all seasons.
 	 *
 	 * @return the list
 	 */
-	List<Seasons> listAllSeasons();
+	List<Season> listAllSeason();
 
 	/**
 	 * Find by id.
 	 *
-	 * @param seriesId the series id
+	 * @param serieId the series id
 	 * @return the seasons
 	 */
-	Seasons findById(Long seriesId);
+	Season findById(Long serieId);
 
 	/**
 	 * Find by tv shows.
@@ -31,7 +31,7 @@ public interface SeasonsServiceI {
 	 * @param tvshow the tvshow
 	 * @return the list
 	 */
-	List<Seasons> findByTvShows(TvShow tvshow);
+	List<Season> findByTvShow(TvShow tvshow);
 
 	/**
 	 * Find by tv shows and number.
@@ -40,6 +40,6 @@ public interface SeasonsServiceI {
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
-	List<Seasons> findByTvShowsAndNumber(TvShow tvshow, int seasonNumber);
+	List<Season> findByTvShowAndNumber(TvShow tvshow, int seasonNumber);
 
 }

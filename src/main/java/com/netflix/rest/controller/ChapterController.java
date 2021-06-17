@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.netflix.rest.model.Chapters;
-import com.netflix.rest.service.ChaptersServiceI;
+import com.netflix.rest.model.Chapter;
+import com.netflix.rest.service.ChapterServiceI;
 
 /**
  * The Class ChapterController.
@@ -19,34 +19,34 @@ public class ChapterController {
 
 	/** The chapter service. */
 	@Autowired
-	@Qualifier("ChaptersServiceImpl")
+	@Qualifier("ChapterServiceImpl")
 
-	private ChaptersServiceI chapterService;
+	private ChapterServiceI chapterService;
 
 	/**
 	 * List tv shows and number.
 	 *
-	 * @param seriesId the series id
+	 * @param serieId the series id
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
-	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}/chapters")
-	public List<Chapters> listTvShowsAndNumber(@PathVariable long seriesId, @PathVariable int seasonNumber) {
-		return chapterService.findByTvShowsAndNumber(seriesId, seasonNumber);
+	@GetMapping("/serie/{serieId}/season/{seasonNumber}/chapter")
+	public List<Chapter> listTvShowAndNumber(@PathVariable long serieId, @PathVariable int seasonNumber) {
+		return chapterService.findByTvShowAndNumber(serieId, seasonNumber);
 	}
 
 	/**
 	 * List tv shows and number and chapter number.
 	 *
-	 * @param seriesId the series id
+	 * @param serieId the series id
 	 * @param seasonNumber the season number
 	 * @param chapterNumber the chapter number
 	 * @return the chapters
 	 */
-	@GetMapping("/series/{seriesId}/seasons/{seasonNumber}/chapters/{chapterNumber}")
-	public Chapters listTvShowsAndNumberAndChapterNumber(@PathVariable long seriesId, @PathVariable int seasonNumber,
+	@GetMapping("/serie/{serieId}/season/{seasonNumber}/chapter/{chapterNumber}")
+	public Chapter listTvShowAndNumberAndChapterNumber(@PathVariable long serieId, @PathVariable int seasonNumber,
 			@PathVariable int chapterNumber) {
-		return chapterService.findByTvShowsAndNumberAndChapterNumber(seriesId, seasonNumber, chapterNumber);
+		return chapterService.findByTvShowAndNumberAndChapterNumber(serieId, seasonNumber, chapterNumber);
 	}
 
 }

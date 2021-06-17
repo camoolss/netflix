@@ -28,7 +28,7 @@ import lombok.Setter;
  * The Class Category.
  */
 @Entity
-@Table(name = "CATEGORIES")
+@Table(name = "CATEGORY")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -65,7 +65,7 @@ public class Category implements Serializable {
 	//private List<TvShow> tvShowList;
 	
 	/** The tv shows. */
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy="categories")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy="category")
 	private List<TvShow> tvShow;
 
 }

@@ -9,12 +9,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * The Class SeasonsRestModel.
+ * The Class SeasonRestModel.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter 
-public class SeasonsRestModel implements Serializable{
+public class SeasonRestModel implements Serializable{
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 18080239613616000L;

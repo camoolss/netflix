@@ -17,7 +17,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
-public class TvShowsRestModel implements Serializable {
+public class TvShowRestModel implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 18080239613616000L;

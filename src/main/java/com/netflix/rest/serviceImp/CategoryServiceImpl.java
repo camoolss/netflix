@@ -17,26 +17,26 @@ import com.netflix.rest.service.CategoryServiceI;
  */
 
 @Service
-@Qualifier("CategoriesServiceImpl")
+@Qualifier("CategoryServiceImpl")
 public class CategoryServiceImpl implements CategoryServiceI {
 
-	/** The categories repository. */
+	/** The category repository. */
 	@Autowired
-	@Qualifier("CategoriesRepository")
+	@Qualifier("CategoryRepository")
 	private CategoryRepository categoryRepository;
 
 	/**
-	 * List all categories.
+	 * List all category.
 	 *
 	 * @return the list
 	 */
 	@Override
-	public List<Category> listAllCategories() {
+	public List<Category> listAllCategory() {
 		return categoryRepository.findAll();
 	}
 
 	@Override
-	public Set<Category> listCategoriesByIds(Set<Long> listCategoriesIds) {
-		return new HashSet<>(categoryRepository.findAllById(listCategoriesIds));
+	public Set<Category> listCategoryById(Set<Long> listCategoryId) {
+		return new HashSet<>(categoryRepository.findAllById(listCategoryId));
 	}
 }

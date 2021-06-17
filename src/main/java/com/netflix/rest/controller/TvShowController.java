@@ -26,13 +26,13 @@ public class TvShowController {
 
 	/** The tv shows service. */
 	@Autowired
-	@Qualifier("TvShowsServiceImpl")
+	@Qualifier("TvShowServiceImpl")
 
 	private TvShowServiceI tvShowService;
 
-	/** The categories service. */
+	/** The category service. */
 	@Autowired
-	@Qualifier("CategoriesServiceImpl")
+	@Qualifier("CategoryServiceImpl")
 
 	private CategoryServiceI categoryService;
 
@@ -42,8 +42,8 @@ public class TvShowController {
 	 * @param categoryId the category id
 	 * @return the list
 	 */
-	@GetMapping("/categories/{categoryId}")
-	public List<TvShow> listTvShowsByName(@PathVariable Long categoryId) {
+	@GetMapping("/category/{categoryId}")
+	public List<TvShow> listTvShowByName(@PathVariable Long categoryId) {
 		return tvShowService.listTvShowByCategory(categoryId);
 	}
 
@@ -59,19 +59,19 @@ public class TvShowController {
 	}
 
 	/**
-	 * Adds the categories to tv show.
+	 * Adds the category to tv show.
 	 *
 	 * @param tvShowId       the tv show id
-	 * @param listCategories the list categories
+	 * @param listCategory the list category
 	 * @return the response entity
 	 */
-	@PostMapping("/tvShows/addCategories/{tvShowId}/")
-	public ResponseEntity<String> addCategoriesToTvShow(@PathVariable Long tvShowId,
-			@RequestParam Set<Long> listCategories) {
-		Set<Category> category = categoryService.listCategoriesByIds(listCategories);
+	@PostMapping("/tvShow/addCategory/{tvShowId}/")
+	public ResponseEntity<String> addCategoryToTvShow(@PathVariable Long tvShowId,
+			@RequestParam Set<Long> listCategory) {
+		Set<Category> category = categoryService.listCategoryById(listCategory);
 		TvShow tvShow = tvShowService.findById(tvShowId);
-		tvShow.getCategories().addAll(category);
-		tvShowService.updateTvShows(tvShow);
+		tvShow.getCategory().addAll(category);
+		tvShowService.updateTvShow(tvShow);
 		return ResponseEntity.status(HttpStatus.OK).body("Se ha añadido la categoria correctamente");
 	}
 

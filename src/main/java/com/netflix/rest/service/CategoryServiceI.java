@@ -11,18 +11,18 @@ import com.netflix.rest.model.Category;
 public interface CategoryServiceI {
 	
 	/**
-	 * List all categories.
+	 * List all category.
 	 *
 	 * @return the list
 	 */
-	List<Category> listAllCategories();
+	List<Category> listAllCategory();
 	
 
 	/**
-	 * List categories by ids.
+	 * List category by ids.
 	 *
-	 * @param listCategoriesIds the list categories ids
+	 * @param listCategoryId the list category ids
 	 * @return the sets the
 	 */
-	Set<Category> listCategoriesByIds(Set<Long> listCategoriesIds);
+	Set<Category> listCategoryById(Set<Long> listCategoryId);
 }
