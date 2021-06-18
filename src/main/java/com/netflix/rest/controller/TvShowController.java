@@ -50,7 +50,7 @@ public class TvShowController {
             ,notes = "Este end point sirve para obtener una lista de las series pasandole como parámetro el category-id")
 	
 	@GetMapping("/category/{categoryId}")
-	public List<TvShow> listTvShowByName(@PathVariable Long categoryId) throws NetflixException {
+	public List<TvShow> listTvShowByName(@PathVariable(value="categoryId") Long categoryId) throws NetflixException {
 		return tvShowService.listTvShowByCategory(categoryId);
 	}
 
@@ -65,8 +65,8 @@ public class TvShowController {
 	@ApiOperation(value = "Mostramos las series por el tvShow-id de la serie elegida"
             ,notes = "Este end point sirve para obtener las series, le pasamos el parámetro del tvShow-id")
 	
-	@GetMapping("/tvShow/{tvShowId}")
-	public TvShow listTvShowById(@PathVariable(value = "tvShow-id") Long tvShowId) throws NetflixException {
+	@GetMapping("/tvShow/{serieId}")
+	public TvShow listTvShowById(@PathVariable(value = "serieId") Long tvShowId) throws NetflixException {
 		return tvShowService.findById(tvShowId);
 	}
 
@@ -83,8 +83,8 @@ public class TvShowController {
             ,notes = "Este end point sirve añadir una categoria nueva a una serie, para ello debemos pasarle "
             		+ "los parametros de listCategories y tvShowId")
 	
-	@PostMapping("/tvShow/addCategory/{tvShowId}/")
-	public ResponseEntity<String> addCategoryToTvShow(@PathVariable(value = "tvShow-id") Long tvShowId,
+	@PostMapping("/tvShow/addCategory/{serieId}/")
+	public ResponseEntity<String> addCategoryToTvShow(@PathVariable(value = "serieId") Long tvShowId,
 			@RequestParam Set<Long> listCategory) throws NetflixException {
 		Set<Category> category = categoryService.listCategoryById(listCategory);
 		TvShow tvShow = tvShowService.findById(tvShowId);

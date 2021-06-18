@@ -58,8 +58,8 @@ public class SeasonController {
             		+ "parámetro el tvShow-id de la serie y el season-number de la temporada")
 	
 	@GetMapping("/serie/{serieId}/season/{seasonNumber}")
-	public List<Season> listTvShowAndNumber(@PathVariable(value = "tvShow-id") Long serieId,
-			@PathVariable(value = "season-number") int seasonNumber) throws NetflixException {
+	public List<Season> listTvShowAndNumber(@PathVariable(value = "serieId") Long serieId,
+			@PathVariable(value = "seasonNumber") int seasonNumber) throws NetflixException {
 		final TvShow tvShow = new TvShow();
 		tvShow.setId(serieId);
 		return seasonService.findByTvShowAndNumber(tvShow, seasonNumber);

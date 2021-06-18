@@ -37,8 +37,8 @@ public class ChapterController {
             ,notes = "Este end point sirve para mostrar todos los capitulos y temporadas de una serie en concreto que hemos elegido, para ello "
             		+ "le pasamos por parámetro el tvShow-id de la serie y el season-number de la temporada")
 	
-	@GetMapping("/tvShow/{tvShow-id}/season/{season-number}/chapter")
-	public List<Chapter> listTvShowAndNumber(@PathVariable(value="tvShow-id") long serieId, @PathVariable(value="season-number") int seasonNumber) throws NetflixException {
+	@GetMapping("/tvShow/{serie-id}/season/{season-number}/chapter")
+	public List<Chapter> listTvShowAndNumber(@PathVariable(value="serie-id") long serieId, @PathVariable(value="season-number") int seasonNumber) throws NetflixException {
 		return chapterService.findByTvShowAndNumber(serieId,seasonNumber);
 	}
 
