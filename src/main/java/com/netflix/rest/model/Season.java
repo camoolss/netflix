@@ -27,19 +27,19 @@ import lombok.Setter;
  * The Class Season.
  */
 @Entity
-@Table(name = "SEASONS")
+@Table(name = "SEASON")
 @Getter
 @Setter
 @NoArgsConstructor
 
 /**
- * Instantiates a new seasons.
+ * Instantiates a new season.
  *
  * @param id the id
  * @param number the number
  * @param name the name
  * @param tvShow the tv show
- * @param chapters the chapters
+ * @param chapter the chapter
  */
 @AllArgsConstructor
 @Builder
@@ -47,7 +47,7 @@ public class Season implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 18080239613616000L;
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,7 +70,7 @@ public class Season implements Serializable {
 	private TvShow tvShow;
 
 	/** The chapters. */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "seasons")
-	private List<Chapter> chapters;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "season")
+	private List<Chapter> chapter;
 
 }

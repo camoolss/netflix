@@ -2,6 +2,7 @@ package com.netflix.rest.service;
 
 import java.util.List;
 
+import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.TvShow;
 
 /**
@@ -15,7 +16,7 @@ public interface TvShowServiceI {
 	 * @param category the category
 	 * @return the list
 	 */
-	List<TvShow> listTvShowByCategory(Long category);
+	List<TvShow> listTvShowByCategory(Long category) throws NetflixException;
 
 	/**
 	 * Find by id.
@@ -23,14 +24,14 @@ public interface TvShowServiceI {
 	 * @param tvShowId the tv show id
 	 * @return the tv shows
 	 */
-	TvShow findById(Long tvShowId);
+	TvShow findById(Long tvShowId) throws NetflixException;
 
 	/**
 	 * Update tv show.
 	 *
 	 * @param tvShow the tv show
-	 * @return the tv shows
+	 * @return the tv show
 	 */
-	TvShow updateTvShow(TvShow tvShow);
+	TvShow updateTvShow(TvShow tvShow) throws NetflixException;
 
 }

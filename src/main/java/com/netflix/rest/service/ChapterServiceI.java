@@ -2,6 +2,7 @@ package com.netflix.rest.service;
 
 import java.util.List;
 
+import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Chapter;
 
 /**
@@ -16,7 +17,7 @@ public interface ChapterServiceI {
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
-	List<Chapter> findByTvShowAndNumber(long tvshowId, int seasonNumber);
+	List<Chapter> findByTvShowAndNumber(long tvshowId, int seasonNumber) throws NetflixException;
 
 	/**
 	 * Find by tv shows and number and chapter number.
@@ -24,7 +25,7 @@ public interface ChapterServiceI {
 	 * @param tvshowId the tvshow id
 	 * @param seasonNumber the season number
 	 * @param chapterNumber the chapter number
-	 * @return the chapters
+	 * @return the chapter
 	 */
-	Chapter findByTvShowAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber);
+	Chapter findByTvShowAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber) throws NetflixException;
 }

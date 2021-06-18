@@ -30,7 +30,7 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	private TvShowRepository tvShowRepository;
 
 	/**
-	 * List all seasons.
+	 * List all season.
 	 *
 	 * @return the list
 	 */
@@ -42,7 +42,7 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	/**
 	 * Find by id.
 	 *
-	 * @param serieId the series id
+	 * @param serieId the serie id
 	 * @return the seasons
 	 */
 	@Override
@@ -51,7 +51,7 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	}
 
 	/**
-	 * Find by tv shows.
+	 * Find by tv show.
 	 *
 	 * @param tvshow the tvshow
 	 * @return the list
@@ -62,7 +62,7 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	}
 
 	/**
-	 * Find by tv shows and number.
+	 * Find by tv show and number.
 	 *
 	 * @param tvshow the tvshow
 	 * @param seasonNumber the season number

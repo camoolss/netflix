@@ -21,22 +21,22 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * The Class Chapters.
+ * The Class Chapter.
  */
 @Entity
-@Table(name = "CHAPTERS")
+@Table(name = "CHAPTER")
 @Getter
 @Setter
 @NoArgsConstructor
 
 /**
- * Instantiates a new chapters.
+ * Instantiates a new chapter.
  *
  * @param id the id
  * @param number the number
  * @param name the name
  * @param duration the duration
- * @param seasons the seasons
+ * @param season the season
  */
 @AllArgsConstructor
 @Builder
@@ -45,7 +45,7 @@ public class Chapter implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,10 +65,10 @@ public class Chapter implements Serializable {
 	@Column(name = "DURATION")
 	private int duration;
 
-	/** The seasons. */
+	/** The season. */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "season_Id", referencedColumnName = "ID")
 	@JsonIgnore
-	private Season seasons;
+	private Season season;
 
 }

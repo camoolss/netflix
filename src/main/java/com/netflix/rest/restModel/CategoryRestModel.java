@@ -1,4 +1,4 @@
-package com.netflix.rest.dto;
+package com.netflix.rest.restModel;
 
 import java.io.Serializable;
 
@@ -9,22 +9,22 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * The Class CategoriesRestModel.
+ * The Class CategoryRestModel.
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
-@Setter 
-public class CategoryRestModel implements Serializable{
-	
+@Setter
+public class CategoryRestModel implements Serializable {
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 18080239613616000L;
-	
+
 	/** The id. */
-	@JsonProperty(value="id")
+	@JsonProperty(value = "id")
 	private Long id;
-	
+
 	/** The name. */
-	@JsonProperty(value="name")
+	@JsonProperty(value = "name")
 	private String name;
-	
+
 }

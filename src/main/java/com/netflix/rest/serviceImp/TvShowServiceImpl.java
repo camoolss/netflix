@@ -43,7 +43,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	 * Find by id.
 	 *
 	 * @param tvShowId the tv show id
-	 * @return the tv shows
+	 * @return the tv show
 	 */
 	@Override
 	public TvShow findById(Long tvShowId) {

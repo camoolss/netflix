@@ -17,7 +17,7 @@ import com.netflix.rest.model.Chapter;
 public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 
 	/**
-	 * List tv shows and number.
+	 * List tv show and number.
 	 *
 	 * @param tvShowId the tv show id
 	 * @param seasonNumber the season number
@@ -28,12 +28,12 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 	List<Chapter> listTvShowAndNumber(long tvShowId, int seasonNumber);
 
 	/**
-	 * Find chapters by tv shows and number and chapter number.
+	 * Find chapter by tv show and number and chapter number.
 	 *
 	 * @param tvShowId the tv show id
 	 * @param seasonNumber the season number
 	 * @param chapterNumber the chapter number
-	 * @return the chapters
+	 * @return the chapter
 	 */
 	@Query(value = "SELECT c.* FROM CHAPTERS c " + " LEFT JOIN SEASONS a ON c.season_id=a.id "
 			+ " LEFT JOIN TV_SHOWS b ON a.tv_show_id=b.id " + " WHERE b.id=?1 and a.number=?2 "

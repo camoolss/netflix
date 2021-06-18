@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Category;
 import com.netflix.rest.model.TvShow;
 import com.netflix.rest.service.CategoryServiceI;
@@ -24,7 +25,7 @@ import com.netflix.rest.service.TvShowServiceI;
 @RestController
 public class TvShowController {
 
-	/** The tv shows service. */
+	/** The tv show service. */
 	@Autowired
 	@Qualifier("TvShowServiceImpl")
 
@@ -37,42 +38,45 @@ public class TvShowController {
 	private CategoryServiceI categoryService;
 
 	/**
-	 * List tv shows by name.
+	 * List tv show by name.
 	 *
 	 * @param categoryId the category id
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
 	@GetMapping("/category/{categoryId}")
-	public List<TvShow> listTvShowByName(@PathVariable Long categoryId) {
+	public List<TvShow> listTvShowByName(@PathVariable Long categoryId) throws NetflixException {
 		return tvShowService.listTvShowByCategory(categoryId);
 	}
 
 	/**
-	 * List tv shows by id.
+	 * List tv show by id.
 	 *
 	 * @param tvShowId the tv show id
-	 * @return the tv shows
+	 * @return the tv show
+	 * @throws NetflixException the netflix exception
 	 */
 	@GetMapping("/tvShow/{tvShowId}")
-	public TvShow listTvShowsById(@PathVariable Long tvShowId) {
+	public TvShow listTvShowById(@PathVariable(value = "tvShow-id") Long tvShowId) throws NetflixException {
 		return tvShowService.findById(tvShowId);
 	}
 
 	/**
 	 * Adds the category to tv show.
 	 *
-	 * @param tvShowId       the tv show id
+	 * @param tvShowId the tv show id
 	 * @param listCategory the list category
 	 * @return the response entity
+	 * @throws NetflixException the netflix exception
 	 */
 	@PostMapping("/tvShow/addCategory/{tvShowId}/")
-	public ResponseEntity<String> addCategoryToTvShow(@PathVariable Long tvShowId,
-			@RequestParam Set<Long> listCategory) {
+	public ResponseEntity<String> addCategoryToTvShow(@PathVariable(value = "tvShow-id") Long tvShowId,
+			@RequestParam Set<Long> listCategory) throws NetflixException {
 		Set<Category> category = categoryService.listCategoryById(listCategory);
 		TvShow tvShow = tvShowService.findById(tvShowId);
 		tvShow.getCategory().addAll(category);
 		tvShowService.updateTvShow(tvShow);
-		return ResponseEntity.status(HttpStatus.OK).body("Se ha añadido la categoria correctamente");
+		return ResponseEntity.status(HttpStatus.OK).body("La categoria se ha insertado correctamente");
 	}
 
 }

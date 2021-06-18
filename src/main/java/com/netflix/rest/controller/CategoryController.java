@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Category;
 import com.netflix.rest.service.CategoryServiceI;
 
@@ -27,7 +28,7 @@ public class CategoryController {
 	 * @return the list
 	 */
 	@GetMapping("/category")
-	public List<Category> listAllCategory() {
+	public List<Category> listAllCategory() throws NetflixException {
 		return categoryService.listAllCategory();
 	}
 
