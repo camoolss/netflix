@@ -19,6 +19,8 @@ import com.netflix.rest.model.TvShow;
 import com.netflix.rest.service.CategoryServiceI;
 import com.netflix.rest.service.TvShowServiceI;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * The Class TvShowController.
  */
@@ -44,6 +46,9 @@ public class TvShowController {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
+	@ApiOperation(value = "Mostramos las series por el Id selecionado de la categoria"
+            ,notes = "Este end point sirve para obtener una lista de las series pasandole como parámetro el category-id")
+	
 	@GetMapping("/category/{categoryId}")
 	public List<TvShow> listTvShowByName(@PathVariable Long categoryId) throws NetflixException {
 		return tvShowService.listTvShowByCategory(categoryId);
@@ -56,6 +61,10 @@ public class TvShowController {
 	 * @return the tv show
 	 * @throws NetflixException the netflix exception
 	 */
+	
+	@ApiOperation(value = "Mostramos las series por el tvShow-id de la serie elegida"
+            ,notes = "Este end point sirve para obtener las series, le pasamos el parámetro del tvShow-id")
+	
 	@GetMapping("/tvShow/{tvShowId}")
 	public TvShow listTvShowById(@PathVariable(value = "tvShow-id") Long tvShowId) throws NetflixException {
 		return tvShowService.findById(tvShowId);
@@ -69,6 +78,11 @@ public class TvShowController {
 	 * @return the response entity
 	 * @throws NetflixException the netflix exception
 	 */
+	
+	@ApiOperation(value = "Añadimos una categoria nueva a una serie especificada por nosotros"
+            ,notes = "Este end point sirve añadir una categoria nueva a una serie, para ello debemos pasarle "
+            		+ "los parametros de listCategories y tvShowId")
+	
 	@PostMapping("/tvShow/addCategory/{tvShowId}/")
 	public ResponseEntity<String> addCategoryToTvShow(@PathVariable(value = "tvShow-id") Long tvShowId,
 			@RequestParam Set<Long> listCategory) throws NetflixException {

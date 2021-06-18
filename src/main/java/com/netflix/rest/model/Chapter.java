@@ -24,7 +24,7 @@ import lombok.Setter;
  * The Class Chapter.
  */
 @Entity
-@Table(name = "CHAPTER")
+@Table(name = "CHAPTERS")
 @Getter
 @Setter
 @NoArgsConstructor

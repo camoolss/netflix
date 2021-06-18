@@ -11,6 +11,8 @@ import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Category;
 import com.netflix.rest.service.CategoryServiceI;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * The Class CategoryController.
  */
@@ -21,6 +23,14 @@ public class CategoryController {
 	@Autowired
 	@Qualifier("CategoryServiceImpl")
 	private CategoryServiceI categoryService;
+
+	/**
+	 * List all category.
+	 *
+	 * @return the list
+	 * @throws NetflixException the netflix exception
+	 */
+	@ApiOperation(value = "Mostramos las categorias", notes = "Este end point sirve para mostrar todas las categorias")
 
 	/**
 	 * List all category.

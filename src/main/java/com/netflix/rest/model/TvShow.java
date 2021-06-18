@@ -30,7 +30,7 @@ import lombok.Setter;
  * The Class TvShow.
  */
 @Entity
-@Table(name = "TV_SHOW")
+@Table(name = "TV_SHOWS")
 @Getter
 @Setter
 @NoArgsConstructor

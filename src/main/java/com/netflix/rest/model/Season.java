@@ -27,7 +27,7 @@ import lombok.Setter;
  * The Class Season.
  */
 @Entity
-@Table(name = "SEASON")
+@Table(name = "SEASONS")
 @Getter
 @Setter
 @NoArgsConstructor

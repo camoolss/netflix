@@ -24,7 +24,7 @@ import lombok.Setter;
  * The Class Category.
  */
 @Entity
-@Table(name = "CATEGORY")
+@Table(name = "CATEGORIES")
 @Getter
 @Setter
 @NoArgsConstructor
