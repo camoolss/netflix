@@ -29,6 +29,7 @@ public class ChapterServiceImpl implements ChapterServiceI {
 	 * @param tvshowId the tvshow id
 	 * @param seasonNumber the season number
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
 	public List<Chapter> findByTvShowAndNumber(long tvshowId, int seasonNumber) throws NetflixException {
@@ -42,10 +43,23 @@ public class ChapterServiceImpl implements ChapterServiceI {
 	 * @param seasonNumber the season number
 	 * @param chapterNumber the chapter number
 	 * @return the chapter
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
 	public Chapter findByTvShowAndNumberAndChapterNumber(long tvshowId, int seasonNumber, int chapterNumber) throws NetflixException{
 		return chapterRepository.findChapterByTvShowAndNumberAndChapterNumber(tvshowId, seasonNumber, chapterNumber);
 	}
+	
+	/**
+	 * Delete chapter.
+	 *
+	 * @param chapter the chapter
+	 * @return the chapter
+	 */
+//	@Override	
+//	public Chapter deleteChapter(Chapter chapter) {	
+//		chapterRepository.delete(chapter);
+//	 return chapter;
+//	}
 
 }

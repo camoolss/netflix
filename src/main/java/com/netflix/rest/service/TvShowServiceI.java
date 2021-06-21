@@ -41,5 +41,13 @@ public interface TvShowServiceI {
 	 * @return the tv show
 	 */
 	TvShow updateTvShowName(Long id, String name) throws NetflixException;
+	
+	/**
+	 * Update tv show.
+	 *
+	 * @param tvShow the tv show
+	 * @return the tv show
+	 */
+	TvShow deleteTvShow(TvShow tvShow) throws NetflixException;
 
 }

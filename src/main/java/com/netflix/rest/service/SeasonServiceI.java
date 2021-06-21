@@ -15,6 +15,7 @@ public interface SeasonServiceI {
 	 * List all seasons.
 	 *
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
 	List<Season> listAllSeason() throws NetflixException;
 
@@ -23,6 +24,7 @@ public interface SeasonServiceI {
 	 *
 	 * @param serieId the series id
 	 * @return the seasons
+	 * @throws NetflixException the netflix exception
 	 */
 	Season findById(Long serieId) throws NetflixException;
 
@@ -31,6 +33,7 @@ public interface SeasonServiceI {
 	 *
 	 * @param tvshow the tvshow
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
 	List<Season> findByTvShow(TvShow tvshow) throws NetflixException;
 
@@ -40,15 +43,27 @@ public interface SeasonServiceI {
 	 * @param tvshow the tvshow
 	 * @param seasonNumber the season number
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
 	List<Season> findByTvShowAndNumber(TvShow tvshow, int seasonNumber) throws NetflixException;
 
 	/**
 	 * Update season.
 	 *
-	 * @param tvShow the season
+	 * @param id the id
+	 * @param name the name
 	 * @return the season
+	 * @throws NetflixException the netflix exception
 	 */
 	Season updateSeason(Long id, String name) throws NetflixException;
+		
+	/**
+	 * Delete season.
+	 *
+	 * @param season the season
+	 * @return the season
+	 * @throws NetflixException the netflix exception
+	 */
+	Season deleteSeason(Season season) throws NetflixException;
 
 }

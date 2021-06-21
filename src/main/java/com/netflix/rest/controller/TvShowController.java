@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Category;
+import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
 import com.netflix.rest.service.CategoryServiceI;
+import com.netflix.rest.service.ChapterServiceI;
 import com.netflix.rest.service.SeasonServiceI;
 import com.netflix.rest.service.TvShowServiceI;
 
@@ -34,12 +36,12 @@ public class TvShowController {
 
 	private TvShowServiceI tvShowService;
 
-	/** The tv show service. */
+	/** The season service. */
 	@Autowired
 	@Qualifier("SeasonServiceImpl")
 
 	private SeasonServiceI seasonService;
-
+	
 	/** The category service. */
 	@Autowired
 	@Qualifier("CategoryServiceImpl")
@@ -118,6 +120,29 @@ public class TvShowController {
 			throws NetflixException {
 		tvShowService.updateTvShowName(id, name);
 		return ResponseEntity.status(HttpStatus.OK).body("Se a actualizado el nombre de la serie correctamente");
+	}
+	
+	/**
+	 * Delete tv show.
+	 *
+	 * @param id the id
+	 * @return the response entity
+	 * @throws NetflixException the netflix exception
+	 */
+	@ApiOperation(value = "Borramos la serie elegida"
+            ,notes = "Este end point sirve para borrar todas las series elegidas, para ello le pasamos como"
+            		+ "parámetro el serieId de la serie")
+	
+	@PostMapping("/tvShow/detete/{serieId}/")
+	public ResponseEntity<String> deleteTvShow(@PathVariable(value = "serieId") Long id)
+			throws NetflixException {
+		TvShow tvShow = tvShowService.findById(id);
+		tvShowService.deleteTvShow(tvShow);
+		Season season = seasonService.findById(id);
+		seasonService.deleteSeason(season);
+//		Chapter chapter = chapterService.findByTvShowAndSeasonId(id, season.getNumber());
+//		chapterService.deleteChapter(chapter);
+		return ResponseEntity.status(HttpStatus.OK).body("Se a borrado la serie correctamente");
 	}
 
 }

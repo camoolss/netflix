@@ -12,6 +12,7 @@ import com.netflix.rest.repository.SeasonRepository;
 import com.netflix.rest.repository.TvShowRepository;
 import com.netflix.rest.service.SeasonServiceI;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SeasonServiceImpl.
  */
@@ -76,7 +77,8 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	/**
 	 * Update season.
 	 *
-	 * @param season the season
+	 * @param id the id
+	 * @param name the name
 	 * @return the season
 	 */
 	@Override
@@ -84,6 +86,18 @@ public class SeasonServiceImpl implements SeasonServiceI {
 		Season season = seasonRepository.findById(id).get();
 		season.setName(name);
 		return seasonRepository.save(season);
+	}
+	
+	/**
+	 * Delete season.
+	 *
+	 * @param season the season
+	 * @return the season
+	 */
+	@Override	
+	public Season deleteSeason(Season season) {	
+		seasonRepository.delete(season);
+	 return season;
 	}
 
 }
