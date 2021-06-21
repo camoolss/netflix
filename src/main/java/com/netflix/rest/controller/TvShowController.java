@@ -17,6 +17,7 @@ import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Category;
 import com.netflix.rest.model.TvShow;
 import com.netflix.rest.service.CategoryServiceI;
+import com.netflix.rest.service.SeasonServiceI;
 import com.netflix.rest.service.TvShowServiceI;
 
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,12 @@ public class TvShowController {
 
 	private TvShowServiceI tvShowService;
 
+	/** The tv show service. */
+	@Autowired
+	@Qualifier("SeasonServiceImpl")
+
+	private SeasonServiceI seasonService;
+
 	/** The category service. */
 	@Autowired
 	@Qualifier("CategoryServiceImpl")
@@ -46,11 +53,11 @@ public class TvShowController {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Mostramos las series por el Id selecionado de la categoria"
-            ,notes = "Este end point sirve para obtener una lista de las series pasandole como parámetro el category-id")
-	
+	@ApiOperation(value = "Mostramos las series por el Id selecionado de la categoria", 
+			notes = "Este end point sirve para obtener una lista de las series pasandole como parámetro el category-id")
+
 	@GetMapping("/category/{categoryId}")
-	public List<TvShow> listTvShowByName(@PathVariable(value="categoryId") Long categoryId) throws NetflixException {
+	public List<TvShow> listTvShowByName(@PathVariable(value = "categoryId") Long categoryId) throws NetflixException {
 		return tvShowService.listTvShowByCategory(categoryId);
 	}
 
@@ -61,10 +68,10 @@ public class TvShowController {
 	 * @return the tv show
 	 * @throws NetflixException the netflix exception
 	 */
-	
-	@ApiOperation(value = "Mostramos las series por el tvShow-id de la serie elegida"
-            ,notes = "Este end point sirve para obtener las series, le pasamos el parámetro del tvShow-id")
-	
+
+	@ApiOperation(value = "Mostramos las series por el tvShow-id de la serie elegida", 
+			notes = "Este end point sirve para obtener las series, le pasamos el parámetro del tvShow-id")
+
 	@GetMapping("/tvShow/{serieId}")
 	public TvShow listTvShowById(@PathVariable(value = "serieId") Long tvShowId) throws NetflixException {
 		return tvShowService.findById(tvShowId);
@@ -73,16 +80,16 @@ public class TvShowController {
 	/**
 	 * Adds the category to tv show.
 	 *
-	 * @param tvShowId the tv show id
+	 * @param tvShowId     the tv show id
 	 * @param listCategory the list category
 	 * @return the response entity
 	 * @throws NetflixException the netflix exception
 	 */
-	
-	@ApiOperation(value = "Añadimos una categoria nueva a una serie especificada por nosotros"
-            ,notes = "Este end point sirve añadir una categoria nueva a una serie, para ello debemos pasarle "
-            		+ "los parametros de listCategories y tvShowId")
-	
+
+	@ApiOperation(value = "Añadimos una categoria nueva a una serie especificada por nosotros", 
+			notes = "Este end point sirve añadir una categoria nueva a una serie, para ello debemos pasarle "
+			+ "los parametros de listCategories y tvShowId")
+
 	@PostMapping("/tvShow/addCategory/{serieId}/")
 	public ResponseEntity<String> addCategoryToTvShow(@PathVariable(value = "serieId") Long tvShowId,
 			@RequestParam Set<Long> listCategory) throws NetflixException {
@@ -91,6 +98,26 @@ public class TvShowController {
 		tvShow.getCategory().addAll(category);
 		tvShowService.updateTvShow(tvShow);
 		return ResponseEntity.status(HttpStatus.OK).body("La categoria se ha insertado correctamente");
+	}
+	
+	/**
+	 * Update tv show.
+	 *
+	 * @param id the id
+	 * @param name the name
+	 * @return the response entity
+	 * @throws NetflixException the netflix exception
+	 */
+	
+	@ApiOperation(value = "Actualizamos los nombres de la serie elegida"
+            ,notes = "Este end point sirve para actualizar todos los nombres de la serie elegida, para ello le pasamos como"
+            		+ "parámetro el serieId de la serie")
+	
+	@PostMapping("/tvShow/update/{serieId}/")
+	public ResponseEntity<String> updateTvShow(@PathVariable(value = "serieId") Long id, @RequestParam String name)
+			throws NetflixException {
+		tvShowService.updateTvShowName(id, name);
+		return ResponseEntity.status(HttpStatus.OK).body("Se a actualizado el nombre de la serie correctamente");
 	}
 
 }

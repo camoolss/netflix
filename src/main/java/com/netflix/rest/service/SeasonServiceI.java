@@ -43,4 +43,12 @@ public interface SeasonServiceI {
 	 */
 	List<Season> findByTvShowAndNumber(TvShow tvshow, int seasonNumber) throws NetflixException;
 
+	/**
+	 * Update season.
+	 *
+	 * @param tvShow the season
+	 * @return the season
+	 */
+	Season updateSeason(Long id, String name) throws NetflixException;
+
 }

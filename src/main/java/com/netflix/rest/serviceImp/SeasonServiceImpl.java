@@ -19,12 +19,12 @@ import com.netflix.rest.service.SeasonServiceI;
 @Qualifier("SeasonServiceImpl")
 public class SeasonServiceImpl implements SeasonServiceI {
 
-	/** The seasons repository. */
+	/** The season repository. */
 	@Autowired
 	@Qualifier("SeasonRepository")
 	private SeasonRepository seasonRepository;
 
-	/** The tv shows repository. */
+	/** The tv show repository. */
 	@Autowired
 	@Qualifier("TvShowRepository")
 	private TvShowRepository tvShowRepository;
@@ -43,7 +43,7 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	 * Find by id.
 	 *
 	 * @param serieId the serie id
-	 * @return the seasons
+	 * @return the season
 	 */
 	@Override
 	public Season findById(Long serieId) {
@@ -64,13 +64,26 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	/**
 	 * Find by tv show and number.
 	 *
-	 * @param tvshow the tvshow
+	 * @param tvshow       the tvshow
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
 	@Override
 	public List<Season> findByTvShowAndNumber(TvShow tvshow, int seasonNumber) {
 		return seasonRepository.findByTvShowAndNumber(tvshow, seasonNumber);
+	}
+
+	/**
+	 * Update season.
+	 *
+	 * @param season the season
+	 * @return the season
+	 */
+	@Override
+	public Season updateSeason(Long id, String name) {
+		Season season = seasonRepository.findById(id).get();
+		season.setName(name);
+		return seasonRepository.save(season);
 	}
 
 }

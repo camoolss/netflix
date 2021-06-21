@@ -60,5 +60,18 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	public TvShow updateTvShow(TvShow tvShow) {
 		return tvShowRepository.save(tvShow);
 	}
+	
+	/**
+	 * Update tv shows.
+	 *
+	 * @param tvShow the tv show
+	 * @return the tv show
+	 */
+	@Override
+	public TvShow updateTvShowName(Long id, String name) {
+		TvShow tvShow = tvShowRepository.findById(id).get();
+		tvShow.setName(name);
+		return tvShowRepository.save(tvShow);
+	}
 
 }
