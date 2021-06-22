@@ -21,3 +21,9 @@ INSERT INTO CHAPTERS(ID, NUMBER, NAME, DURATION, SEASON_ID) VALUES
 	(2, 2, 'Chapter 2', 45, 1), 
 	(3, 3, 'Chapter 3', 44, 1),
 	(4, 1, 'Chapter 0', 50, 2);
+	
+INSERT INTO ACTORS(ID, NAME, YEAR) VALUES 
+	(1, 'Actor 1', 1991), 
+	(2, 'Actor 2', 1982), 
+	(3, 'Actor 3', 2000),
+	(4, 'Actor 4', 1999);

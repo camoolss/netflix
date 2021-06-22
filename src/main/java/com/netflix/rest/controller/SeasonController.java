@@ -86,7 +86,7 @@ public class SeasonController {
 	public ResponseEntity<String> updateSeason(@PathVariable(value = "seasonId") Long id, @RequestParam String name)
 			throws NetflixException {
 		seasonService.updateSeason(id, name);
-		return ResponseEntity.status(HttpStatus.OK).body("Se a actualizado el nombre del capitulo correctamente");
+		return ResponseEntity.status(HttpStatus.OK).body("Se ha actualizado el nombre del capitulo correctamente");
 	}
 
 }

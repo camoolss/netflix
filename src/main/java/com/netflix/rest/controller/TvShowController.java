@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Category;
-import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
 import com.netflix.rest.service.CategoryServiceI;
-import com.netflix.rest.service.ChapterServiceI;
 import com.netflix.rest.service.SeasonServiceI;
 import com.netflix.rest.service.TvShowServiceI;
 
@@ -119,7 +117,7 @@ public class TvShowController {
 	public ResponseEntity<String> updateTvShow(@PathVariable(value = "serieId") Long id, @RequestParam String name)
 			throws NetflixException {
 		tvShowService.updateTvShowName(id, name);
-		return ResponseEntity.status(HttpStatus.OK).body("Se a actualizado el nombre de la serie correctamente");
+		return ResponseEntity.status(HttpStatus.OK).body("Se ha actualizado el nombre de la serie correctamente");
 	}
 	
 	/**
@@ -138,11 +136,7 @@ public class TvShowController {
 			throws NetflixException {
 		TvShow tvShow = tvShowService.findById(id);
 		tvShowService.deleteTvShow(tvShow);
-		Season season = seasonService.findById(id);
-		seasonService.deleteSeason(season);
-//		Chapter chapter = chapterService.findByTvShowAndSeasonId(id, season.getNumber());
-//		chapterService.deleteChapter(chapter);
-		return ResponseEntity.status(HttpStatus.OK).body("Se a borrado la serie correctamente");
+		return ResponseEntity.status(HttpStatus.OK).body("Se ha borrado la serie correctamente");
 	}
 
 }

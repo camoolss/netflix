@@ -32,11 +32,6 @@ public class CategoryController {
 	 */
 	@ApiOperation(value = "Mostramos las categorias", notes = "Este end point sirve para mostrar todas las categorias")
 
-	/**
-	 * List all category.
-	 *
-	 * @return the list
-	 */
 	@GetMapping("/category")
 	public List<Category> listAllCategory() throws NetflixException {
 		return categoryService.listAllCategory();
