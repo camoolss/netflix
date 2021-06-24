@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.netflix.rest.model.TvShow;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,16 +39,16 @@ import lombok.Setter;
 /**
  * Instantiates a new tv show.
  *
- * @param id the id
- * @param name the name
+ * @param id               the id
+ * @param name             the name
  * @param shortDescription the short description
- * @param longDescription the long description
- * @param year the year
- * @param recommendedAge the recommended age
- * @param categoryId the category id
- * @param seasons the seasons
- * @param advertising the advertising
- * @param category the category
+ * @param longDescription  the long description
+ * @param year             the year
+ * @param recommendedAge   the recommended age
+ * @param categoryId       the category id
+ * @param seasons          the seasons
+ * @param advertising      the advertising
+ * @param category         the category
  */
 @AllArgsConstructor
 @Builder
@@ -61,6 +62,7 @@ public class TvShow implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	@JsonIgnore
+	@ApiModelProperty(position = 0)
 	private Long id;
 
 	/** The name. */
@@ -91,14 +93,14 @@ public class TvShow implements Serializable {
 
 	/** The seasons. */
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "tvShow")
-	private List<Season> seasons;
+	private List<Season> season;
 
 	/** The advertising. */
 	@Column(name = "ADVERTISING")
 	private String advertising;
 
-	/** The category. */
-	@JoinTable(name = "CATEGORY_TVSHOWS", joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
+	@JoinTable(name = "CATEGORY_TVSHOW", joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Category> category;
 

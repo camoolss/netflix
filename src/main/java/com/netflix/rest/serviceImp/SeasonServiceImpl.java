@@ -1,18 +1,23 @@
 package com.netflix.rest.serviceImp;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.netflix.rest.exception.NetflixException;
+import com.netflix.rest.exception.NotFoundException;
 import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
 import com.netflix.rest.repository.SeasonRepository;
-import com.netflix.rest.repository.TvShowRepository;
+import com.netflix.rest.restModel.SeasonRestModel;
 import com.netflix.rest.service.SeasonServiceI;
+import com.netflix.rest.utils.constants.ExceptionConstants;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class SeasonServiceImpl.
  */
@@ -25,30 +30,42 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	@Qualifier("SeasonRepository")
 	private SeasonRepository seasonRepository;
 
-	/** The tv show repository. */
+	/** The model mapper. */
 	@Autowired
-	@Qualifier("TvShowRepository")
-	private TvShowRepository tvShowRepository;
+	private ModelMapper modelMapper;
 
 	/**
 	 * List all season.
 	 *
 	 * @return the list
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public List<Season> listAllSeason() {
-		return seasonRepository.findAll();
+	public List<SeasonRestModel> listAllSeason() throws NetflixException {
+
+		List<Season> season = seasonRepository.findAll();
+
+		if (season.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON);
+		}
+		return season.stream().map(seasons -> modelMapper.map(season, SeasonRestModel.class))
+				.collect(Collectors.toList());
 	}
 
+	
 	/**
 	 * Find by id.
 	 *
-	 * @param serieId the serie id
-	 * @return the season
+	 * @param tvShowId the tv show id
+	 * @return the season rest model
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public Season findById(Long serieId) {
-		return seasonRepository.findById(serieId).get();
+	public SeasonRestModel findById(Long tvShowId) throws NetflixException {
+
+		Season season = seasonRepository.findById(tvShowId)
+				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON));
+		return modelMapper.map(season, SeasonRestModel.class);
 	}
 
 	/**
@@ -56,48 +73,34 @@ public class SeasonServiceImpl implements SeasonServiceI {
 	 *
 	 * @param tvshow the tvshow
 	 * @return the list
+	 * @throws NotFoundException the not found exception
 	 */
 	@Override
-	public List<Season> findByTvShow(TvShow tvshow) {
-		return seasonRepository.findByTvShow(tvshow);
+	public List<SeasonRestModel> findByTvShow(TvShow tvshow) throws NotFoundException {
+
+		List<Season> season = seasonRepository.findByTvShow(tvshow);
+
+		if (season.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_SEASON);
+		}
+		return season.stream().map(seasons -> modelMapper.map(season, SeasonRestModel.class))
+				.collect(Collectors.toList());
 	}
 
 	/**
-	 * Find by tv show and number.
+	 * Find by tv show id and number.
 	 *
-	 * @param tvshow       the tvshow
+	 * @param tvShowId the tv show id
 	 * @param seasonNumber the season number
-	 * @return the list
+	 * @return the season rest model
+	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public List<Season> findByTvShowAndNumber(TvShow tvshow, int seasonNumber) {
-		return seasonRepository.findByTvShowAndNumber(tvshow, seasonNumber);
-	}
+	public SeasonRestModel findByTvShowIdAndNumber(Long tvShowId, int seasonNumber) throws NetflixException {
 
-	/**
-	 * Update season.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @return the season
-	 */
-	@Override
-	public Season updateSeason(Long id, String name) {
-		Season season = seasonRepository.findById(id).get();
-		season.setName(name);
-		return seasonRepository.save(season);
-	}
-	
-	/**
-	 * Delete season.
-	 *
-	 * @param season the season
-	 * @return the season
-	 */
-	@Override	
-	public Season deleteSeason(Season season) {	
-		seasonRepository.delete(season);
-	 return season;
+		Season season = seasonRepository.findByTvShowIdAndNumber(tvShowId, seasonNumber);
+		return modelMapper.map(season, SeasonRestModel.class);
+
 	}
 
 }

@@ -5,25 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.netflix.rest.utils.constants.RestConstants;
 
 import com.netflix.rest.exception.NetflixException;
-import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
+import com.netflix.rest.response.NetflixResponse;
+import com.netflix.rest.restModel.SeasonRestModel;
 import com.netflix.rest.service.SeasonServiceI;
+import com.netflix.rest.utils.constants.CommonConstants;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.SwaggerDefinition;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SeasonController.
  */
 @RestController
+@SwaggerDefinition
+@RequestMapping(RestConstants.RESOURCE_SEASON)
 public class SeasonController {
 
 	/** The season service. */
@@ -34,59 +37,41 @@ public class SeasonController {
 	/**
 	 * List season by id.
 	 *
-	 * @param serieId the serie id
-	 * @return the list
+	 * @param seriesId the series id
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-	
-	@ApiOperation(value = "Mostramos los capitulos de la serie elegida"
-            ,notes = "Este end point sirve para listar todos los capitulos de la serie elegida, para ello le pasamos como"
-            		+ "parámetro el tvShow-id de la serie")
-	
-	@GetMapping("/serie/{serieId}/season")
-	public List<Season> listSeasonById(@PathVariable(value = "serieId") Long serieId) throws NetflixException {
+	@ApiOperation(value = "Mostramos los capitulos de una serie", 
+			notes = "Este end point sirve para mostrar todos los capitulos de una serie, para ello le pasamos como"
+			+ "parámetro el tvShow-id de la serie")
+
+	@GetMapping("/tvShow/{tvShowId}/season")
+	public NetflixResponse<List<SeasonRestModel>> listSeasonById(@PathVariable(value = "tvShowId") Long seriesId)
+			throws NetflixException {
 		final TvShow tvShow = new TvShow();
-		tvShow.setId(serieId);
-		return seasonService.findByTvShow(tvShow);
+		tvShow.setId(seriesId);
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				seasonService.findByTvShow(tvShow));
 	}
 
 	/**
 	 * List tv show and number.
 	 *
-	 * @param serieId the serie id
+	 * @param tvShowId     the tv show id
 	 * @param seasonNumber the season number
-	 * @return the list
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Mostramos el número de temporadas de la serie elegida"
-            ,notes = "Este end point sirve para mostrar el número de temporadas de la serie elegida, para ello le pasamos como"
-            		+ "parámetro el tvShow-id de la serie y el season-number de la temporada")
-	
-	@GetMapping("/serie/{serieId}/season/{seasonNumber}")
-	public List<Season> listTvShowAndNumber(@PathVariable(value = "serieId") Long serieId,
+	@ApiOperation(value = "Mostramos el número de temporadas de una serie en concreto", 
+			notes = "Este end point sirve para mostrar el número de temporadas de una serie, para ello le pasamos como"
+			+ "parámetro el tvShow-id de la serie y el season-number de la temporada")
+
+	@GetMapping("/tvShow/{tvShowId}/season/{seasonNumber}")
+	public NetflixResponse<SeasonRestModel> listTvShowAndNumber(@PathVariable Long tvShowId,
 			@PathVariable(value = "seasonNumber") int seasonNumber) throws NetflixException {
-		final TvShow tvShow = new TvShow();
-		tvShow.setId(serieId);
-		return seasonService.findByTvShowAndNumber(tvShow, seasonNumber);
-	}
-	
-	/**
-	 * Update season.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @return the response entity
-	 * @throws NetflixException the netflix exception
-	 */
-	@ApiOperation(value = "Actualizamos los nombres de los capitulos de la serie elegida"
-            ,notes = "Este end point sirve para actualizar todos los nombres del capitulo elegido, para ello le pasamos como"
-            		+ "parámetro el seasonId del capitulo")
-	
-	@PostMapping("/season/update/{seasonId}/")
-	public ResponseEntity<String> updateSeason(@PathVariable(value = "seasonId") Long id, @RequestParam String name)
-			throws NetflixException {
-		seasonService.updateSeason(id, name);
-		return ResponseEntity.status(HttpStatus.OK).body("Se ha actualizado el nombre del capitulo correctamente");
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				seasonService.findByTvShowIdAndNumber(tvShowId, seasonNumber));
+
 	}
 
 }

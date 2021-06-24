@@ -3,8 +3,8 @@ package com.netflix.rest.service;
 import java.util.List;
 
 import com.netflix.rest.exception.NetflixException;
-import com.netflix.rest.model.Season;
 import com.netflix.rest.model.TvShow;
+import com.netflix.rest.restModel.SeasonRestModel;
 
 /**
  * The Interface SeasonServiceI.
@@ -12,21 +12,21 @@ import com.netflix.rest.model.TvShow;
 public interface SeasonServiceI {
 
 	/**
-	 * List all seasons.
+	 * List all season.
 	 *
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Season> listAllSeason() throws NetflixException;
+	List<SeasonRestModel> listAllSeason() throws NetflixException;
 
 	/**
 	 * Find by id.
 	 *
-	 * @param serieId the series id
-	 * @return the seasons
+	 * @param tvShowId the tv show id
+	 * @return the season rest model
 	 * @throws NetflixException the netflix exception
 	 */
-	Season findById(Long serieId) throws NetflixException;
+	SeasonRestModel findById(Long tvShowId) throws NetflixException;
 
 	/**
 	 * Find by tv shows.
@@ -35,35 +35,16 @@ public interface SeasonServiceI {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Season> findByTvShow(TvShow tvshow) throws NetflixException;
+	List<SeasonRestModel> findByTvShow(TvShow tvshow) throws NetflixException;
 
 	/**
-	 * Find by tv shows and number.
+	 * Find by tv show id and number.
 	 *
-	 * @param tvshow the tvshow
+	 * @param tvshowId the tvshow id
 	 * @param seasonNumber the season number
-	 * @return the list
+	 * @return the season rest model
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Season> findByTvShowAndNumber(TvShow tvshow, int seasonNumber) throws NetflixException;
-
-	/**
-	 * Update season.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @return the season
-	 * @throws NetflixException the netflix exception
-	 */
-	Season updateSeason(Long id, String name) throws NetflixException;
-		
-	/**
-	 * Delete season.
-	 *
-	 * @param season the season
-	 * @return the season
-	 * @throws NetflixException the netflix exception
-	 */
-	Season deleteSeason(Season season) throws NetflixException;
+	SeasonRestModel findByTvShowIdAndNumber(Long tvshowId, int seasonNumber) throws NetflixException;
 
 }

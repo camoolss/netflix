@@ -3,15 +3,20 @@ package com.netflix.rest.serviceImp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.netflix.rest.exception.NetflixException;
+import com.netflix.rest.exception.NotFoundException;
 import com.netflix.rest.model.Category;
 import com.netflix.rest.repository.CategoryRepository;
+import com.netflix.rest.restModel.CategoryRestModel;
 import com.netflix.rest.service.CategoryServiceI;
+import com.netflix.rest.utils.constants.ExceptionConstants;
 
 /**
  * The Class CategoryServiceImpl.
@@ -26,6 +31,10 @@ public class CategoryServiceImpl implements CategoryServiceI {
 	@Qualifier("CategoryRepository")
 	private CategoryRepository categoryRepository;
 
+	/** The model mapper. */
+	@Autowired
+	private ModelMapper modelMapper;
+
 	/**
 	 * List all category.
 	 *
@@ -33,8 +42,15 @@ public class CategoryServiceImpl implements CategoryServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public List<Category> listAllCategory() throws NetflixException {
-		return categoryRepository.findAll();
+	public List<CategoryRestModel> listAllCategory() throws NetflixException {
+
+		List<Category> category = categoryRepository.findAll();
+		if (category.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_CATEGORY);
+		}
+
+		return category.stream().map(categories -> modelMapper.map(category, CategoryRestModel.class))
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -46,6 +62,12 @@ public class CategoryServiceImpl implements CategoryServiceI {
 	 */
 	@Override
 	public Set<Category> listCategoryById(Set<Long> listCategoryId) throws NetflixException {
-		return new HashSet<>(categoryRepository.findAllById(listCategoryId));
+
+		Set<Category> category = new HashSet<>(categoryRepository.findAllById(listCategoryId));
+
+		if (category.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_CATEGORY);
+		}
+		return category;
 	}
 }

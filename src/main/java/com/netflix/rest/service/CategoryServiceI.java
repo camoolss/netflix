@@ -5,24 +5,25 @@ import java.util.Set;
 
 import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Category;
+import com.netflix.rest.restModel.CategoryRestModel;
 
 /**
  * The Interface CategoryServiceI.
  */
 public interface CategoryServiceI {
-
+	
 	/**
-	 * List all category.
+	 * List all categories.
 	 *
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Category> listAllCategory() throws NetflixException;
+	List<CategoryRestModel> listAllCategory() throws NetflixException;
 
 	/**
-	 * List category by id.
+	 * List categories by ids.
 	 *
-	 * @param listCategoryId the list category id
+	 * @param listCategoriesIds the list categories ids
 	 * @return the sets the
 	 * @throws NetflixException the netflix exception
 	 */

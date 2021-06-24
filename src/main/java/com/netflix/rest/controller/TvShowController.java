@@ -7,40 +7,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.rest.exception.NetflixException;
-import com.netflix.rest.model.Category;
-import com.netflix.rest.model.TvShow;
+import com.netflix.rest.response.NetflixResponse;
+import com.netflix.rest.restModel.TvShowRestModel;
 import com.netflix.rest.service.CategoryServiceI;
-import com.netflix.rest.service.SeasonServiceI;
 import com.netflix.rest.service.TvShowServiceI;
+import com.netflix.rest.utils.constants.CommonConstants;
+import com.netflix.rest.utils.constants.RestConstants;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.SwaggerDefinition;
 
 /**
  * The Class TvShowController.
  */
 @RestController
+@SwaggerDefinition
+@RequestMapping(RestConstants.RESOURCE_TV_SHOW)
 public class TvShowController {
 
-	/** The tv show service. */
+	/** The tv shows service. */
 	@Autowired
 	@Qualifier("TvShowServiceImpl")
 
 	private TvShowServiceI tvShowService;
 
-	/** The season service. */
-	@Autowired
-	@Qualifier("SeasonServiceImpl")
-
-	private SeasonServiceI seasonService;
-	
-	/** The category service. */
+	/** The categories service. */
 	@Autowired
 	@Qualifier("CategoryServiceImpl")
 
@@ -50,93 +52,87 @@ public class TvShowController {
 	 * List tv show by name.
 	 *
 	 * @param categoryId the category id
-	 * @return the list
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Mostramos las series por el Id selecionado de la categoria", 
+	@ApiOperation(value = "Mostramos las series por el Id de la categoria", 
 			notes = "Este end point sirve para obtener una lista de las series pasandole como parámetro el category-id")
 
 	@GetMapping("/category/{categoryId}")
-	public List<TvShow> listTvShowByName(@PathVariable(value = "categoryId") Long categoryId) throws NetflixException {
-		return tvShowService.listTvShowByCategory(categoryId);
+	public NetflixResponse<List<TvShowRestModel>> listTvShowByName(@PathVariable Long categoryId)
+			throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				tvShowService.findByCategoryId(categoryId));
 	}
 
 	/**
-	 * List tv show by id.
+	 * List tv shows by id.
 	 *
 	 * @param tvShowId the tv show id
-	 * @return the tv show
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-
-	@ApiOperation(value = "Mostramos las series por el tvShow-id de la serie elegida", 
+	@ApiOperation(value = "Mostramos las series por el tvShow-id de la serie", 
 			notes = "Este end point sirve para obtener las series, le pasamos el parámetro del tvShow-id")
 
-	@GetMapping("/tvShow/{serieId}")
-	public TvShow listTvShowById(@PathVariable(value = "serieId") Long tvShowId) throws NetflixException {
-		return tvShowService.findById(tvShowId);
+	@GetMapping("/tvShow/{tvShow-id}")
+	public NetflixResponse<TvShowRestModel> listTvShowsById(@PathVariable(value = "tvShow-id") Long tvShowId)
+			throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				tvShowService.findById(tvShowId));
 	}
 
 	/**
-	 * Adds the category to tv show.
+	 * Adds the categories to tv show.
 	 *
-	 * @param tvShowId     the tv show id
-	 * @param listCategory the list category
+	 * @param tvShowId the tv show id
+	 * @param listCategories the list categories
 	 * @return the response entity
 	 * @throws NetflixException the netflix exception
 	 */
-
-	@ApiOperation(value = "Añadimos una categoria nueva a una serie especificada por nosotros", 
+	@ApiOperation(value = "Añadimos una categoria nueva a una serie", 
 			notes = "Este end point sirve añadir una categoria nueva a una serie, para ello debemos pasarle "
 			+ "los parametros de listCategories y tvShowId")
 
-	@PostMapping("/tvShow/addCategory/{serieId}/")
-	public ResponseEntity<String> addCategoryToTvShow(@PathVariable(value = "serieId") Long tvShowId,
-			@RequestParam Set<Long> listCategory) throws NetflixException {
-		Set<Category> category = categoryService.listCategoryById(listCategory);
-		TvShow tvShow = tvShowService.findById(tvShowId);
-		tvShow.getCategory().addAll(category);
-		tvShowService.updateTvShow(tvShow);
+	@PostMapping("/tvShow/{tvShow-id}/category")
+	public ResponseEntity<String> addCategoriesToTvShow(@PathVariable(value = "tvShow-id") Long tvShowId,
+			@RequestParam Set<Long> listCategories) throws NetflixException {
 		return ResponseEntity.status(HttpStatus.OK).body("La categoria se ha insertado correctamente");
 	}
-	
-	/**
-	 * Update tv show.
-	 *
-	 * @param id the id
-	 * @param name the name
-	 * @return the response entity
-	 * @throws NetflixException the netflix exception
-	 */
-	
-	@ApiOperation(value = "Actualizamos los nombres de la serie elegida"
-            ,notes = "Este end point sirve para actualizar todos los nombres de la serie elegida, para ello le pasamos como"
-            		+ "parámetro el serieId de la serie")
-	
-	@PostMapping("/tvShow/update/{serieId}/")
-	public ResponseEntity<String> updateTvShow(@PathVariable(value = "serieId") Long id, @RequestParam String name)
-			throws NetflixException {
-		tvShowService.updateTvShowName(id, name);
-		return ResponseEntity.status(HttpStatus.OK).body("Se ha actualizado el nombre de la serie correctamente");
-	}
-	
-	/**
-	 * Delete tv show.
-	 *
-	 * @param id the id
-	 * @return the response entity
-	 * @throws NetflixException the netflix exception
-	 */
-	@ApiOperation(value = "Borramos la serie elegida"
-            ,notes = "Este end point sirve para borrar todas las series elegidas, para ello le pasamos como"
-            		+ "parámetro el serieId de la serie")
-	
-	@PostMapping("/tvShow/detete/{serieId}/")
-	public ResponseEntity<String> deleteTvShow(@PathVariable(value = "serieId") Long id)
-			throws NetflixException {
-		TvShow tvShow = tvShowService.findById(id);
-		tvShowService.deleteTvShow(tvShow);
-		return ResponseEntity.status(HttpStatus.OK).body("Se ha borrado la serie correctamente");
-	}
 
+	/**
+	 * Update tv show name.
+	 *
+	 * @param tvShowId the tv show id
+	 * @param tvShowName the tv show name
+	 * @return the netflix response
+	 * @throws NetflixException the netflix exception
+	 */
+	@ApiOperation(value = "Actualizamos el nombre de una serie", 
+			notes = "Este end point sirve para actualizar el nombre de una serie por su Id")
+
+	@PatchMapping(value = RestConstants.RESOURCE_TV_SHOW_UPDATE_NAME, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	public NetflixResponse<TvShowRestModel> updateTvShowName(@PathVariable Long tvShowId,
+			@PathVariable String tvShowName) throws NetflixException {
+
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				tvShowService.updateTvShowName(tvShowId, tvShowName));
+	}
+	
+	/**
+	 * Delete tv show by id.
+	 *
+	 * @param tvShowId the tv show id
+	 * @return the netflix response
+	 * @throws NetflixException the netflix exception
+	 */
+	@ApiOperation(value = "Eliminamos una serie", 
+			notes = "Este end point sirve para eliminar una serie, para ello debemos pasarle como parámetro su tvShowId")
+	
+	@DeleteMapping(value = RestConstants.RESOURCE_ID)
+	public NetflixResponse<String> deleteTvShowById(@PathVariable(value="id") Long tvShowId) throws NetflixException {
+		tvShowService.deleteByTvShowId(tvShowId);
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK);
+	}
 }
