@@ -5,23 +5,34 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Actor;
+import com.netflix.rest.response.NetflixResponse;
+import com.netflix.rest.restModel.ActorRestModel;
 import com.netflix.rest.service.ActorServiceI;
+import com.netflix.rest.utils.constants.CommonConstants;
+import com.netflix.rest.utils.constants.RestConstants;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.SwaggerDefinition;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ActorController.
  */
 @RestController
+@SwaggerDefinition
+@RequestMapping(RestConstants.RESOURCE_ACTOR)
 public class ActorController {
 
 	/** The actor service. */
@@ -33,83 +44,75 @@ public class ActorController {
 	/**
 	 * List all actor.
 	 *
-	 * @return the list
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
 	@ApiOperation(value = "Mostramos los actores", 
 			notes = "Este end point sirve para mostrar todos los actores")
-
-	@GetMapping("/actor")
-	public List<Actor> listAllActor() throws NetflixException {
-		return actorService.listAllActor();
+	@GetMapping
+	public NetflixResponse<List<ActorRestModel>> listAllActor() throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				actorService.listAllActor());
 	}
 
 	/**
-	 * Find by id.
+	 * List tv shows by id.
 	 *
-	 * @param id the id
-	 * @return the actor
+	 * @param actorId the actor id
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Mostramos el actor seleccionado", 
-			notes = "Este end point sirve para obtener un actor pasandole como parámetro el actorId")
+	@ApiOperation(value = "Mostramos el actor elegido", 
+			notes = "Este end point sirve para obtener un actor en concreto, le pasamos el parámetro del actor-id")
 
-	@GetMapping("/actor/{actorId}")
-	public Actor findById(@PathVariable(value = "actorId") Long id) throws NetflixException {
-		return actorService.findById(id);
+	@GetMapping("/actor/{actor-id}")
+	public NetflixResponse<ActorRestModel> listActorById(@PathVariable(value = "actor-id") Long actorId)
+			throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				actorService.findById(actorId));
 	}
 	
-	/**
-	 * Adds the actor.
-	 *
-	 * @param actor the actor
-	 * @return the response entity
-	 * @throws NetflixException the netflix exception
-	 */
 	@ApiOperation(value = "Añadimos un actor", 
 			notes = "Este end point sirve para añadir un actor pasandole como parámetro el actor")
 	
 	@PostMapping("/addActor")
-	public ResponseEntity<String> addActor(@RequestBody Actor actor) throws NetflixException {
-		actorService.addActor(actor);
-		return ResponseEntity.status(HttpStatus.OK).body("Se ha añadido el actor correctamente");
+	public NetflixResponse<ActorRestModel> addActor(@RequestBody Actor actor) throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				actorService.addActor(actor));
 	}
-
+	
 	/**
 	 * Update actor.
 	 *
-	 * @param actor the actor
-	 * @param id the id
-	 * @return the response entity
+	 * @param actorId the actor id
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Actualizamos el actor elegido", 
-			notes = "Este end point sirve para actualizar el actor elegido, para ello le pasamos como"
-			+ "parámetro el actorId")
+	@ApiOperation(value = "Actualizamos el actor", 
+			notes = "Este end point sirve para actualizar el actor por su Id")
 
-	@PostMapping("/actor/update/{actorId}/")
-	public ResponseEntity<String> updateActor(@RequestBody Actor actor, @PathVariable(value = "actorId") Long id) throws NetflixException {
-		actor.setId(id);
-		actorService.updateActor(actor);
-		return ResponseEntity.status(HttpStatus.OK).body("Se ha actualizado el actor correctamente");
+	@PatchMapping(value = RestConstants.RESOURCE_ACTOR_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	public NetflixResponse<ActorRestModel> updateActor(@RequestBody Actor actor, @PathVariable(value = "actorId") Long id) throws NetflixException {
+
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				actorService.updateActor(actor, id));
 	}
-
+	
 	/**
-	 * Delete actor.
+	 * Delete actor by id.
 	 *
-	 * @param id the id
-	 * @return the response entity
+	 * @param actorId the actor id
+	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Borramos el actor elegido", 
-			notes = "Este end point sirve para borrar el actor elegido, para ello le pasamos como"
-			+ "parámetro el actorId")
-
-	@PostMapping("/actor/detete/{actorId}/")
-	public ResponseEntity<String> deleteTvShow(@PathVariable(value = "actorId") Long id)
-			throws NetflixException {
-		Actor actor = actorService.findById(id);
-		actorService.deleteActor(actor);
-		return ResponseEntity.status(HttpStatus.OK).body("Se ha borrado la serie correctamente");
+	@ApiOperation(value = "Eliminamos un actor", 
+			notes = "Este end point sirve para eliminar un actor, para ello debemos pasarle como parámetro su actorId")
+	
+	@DeleteMapping(value = RestConstants.RESOURCE_ID)
+	public NetflixResponse<String> deleteActorById(@PathVariable(value="id") Long actorId) throws NetflixException {
+		actorService.deleteActorById(actorId);
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK);
 	}
+
 }

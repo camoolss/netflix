@@ -46,7 +46,7 @@ public interface TvShowServiceI {
 	 * @return the tv show rest model
 	 * @throws NetflixException the netflix exception
 	 */
-	TvShowRestModel updateTvShows(Long tvShowId) throws NetflixException;
+	TvShowRestModel updateTvShow(Long tvShowId) throws NetflixException;
 
 	/**
 	 * Update tv show name.

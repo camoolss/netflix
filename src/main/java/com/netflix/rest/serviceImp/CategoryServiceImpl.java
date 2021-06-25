@@ -21,7 +21,6 @@ import com.netflix.rest.utils.constants.ExceptionConstants;
 /**
  * The Class CategoryServiceImpl.
  */
-
 @Service
 @Qualifier("CategoryServiceImpl")
 public class CategoryServiceImpl implements CategoryServiceI {

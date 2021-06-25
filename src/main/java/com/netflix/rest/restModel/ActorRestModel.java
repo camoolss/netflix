@@ -5,12 +5,27 @@ import java.io.Serializable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * The Class ActorRestModel.
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
+
+/**
+ * Instantiates a new actor rest model.
+ *
+ * @param id the id
+ * @param name the name
+ * @param year the year
+ */
+@AllArgsConstructor
+@NoArgsConstructor
 public class ActorRestModel implements Serializable {
 
 	/** The Constant serialVersionUID. */

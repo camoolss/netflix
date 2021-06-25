@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.model.Actor;
+import com.netflix.rest.restModel.ActorRestModel;
 
 /**
  * The Interface ActorServiceI.
@@ -16,17 +17,17 @@ public interface ActorServiceI {
 	 * @return the list
 	 * @throws NetflixException the netflix exception
 	 */
-	List<Actor> listAllActor() throws NetflixException;
+	List<ActorRestModel> listAllActor() throws NetflixException;
 
 	/**
 	 * Find by id.
 	 *
-	 * @param ActorId the actor id
+	 * @param actorId the actor id
 	 * @return the actor
 	 * @throws NetflixException the netflix exception
 	 */
-	Actor findById(Long ActorId) throws NetflixException;
-
+	ActorRestModel findById(Long actorId) throws NetflixException;
+	
 	/**
 	 * Adds the actor.
 	 *
@@ -34,24 +35,23 @@ public interface ActorServiceI {
 	 * @return the actor
 	 * @throws NetflixException the netflix exception
 	 */
-	Actor addActor(Actor actor) throws NetflixException;
+	ActorRestModel addActor(Actor actor) throws NetflixException;
 
 	/**
 	 * Update actor.
 	 *
-	 * @param id the id
-	 * @return the actor
+	 * @param actorId the actor id
+	 * @return the actor rest model
 	 * @throws NetflixException the netflix exception
 	 */
-	Actor updateActor(Actor actor) throws NetflixException;
-
+	ActorRestModel updateActor(Actor actor, Long actorId) throws NetflixException;
+	
 	/**
-	 * Delete actor.
+	 * Delete actor by id.
 	 *
-	 * @param actor the actor
-	 * @return the actor
+	 * @param actorId the actor id
 	 * @throws NetflixException the netflix exception
 	 */
-	Actor deleteActor(Actor actor) throws NetflixException;
+	void deleteActorById(Long actorId) throws NetflixException;
 
 }

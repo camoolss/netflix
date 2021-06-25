@@ -100,7 +100,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public TvShowRestModel updateTvShows(Long tvShowId) throws NetflixException {
+	public TvShowRestModel updateTvShow(Long tvShowId) throws NetflixException {
 
 		TvShow tvShow = tvShowRepository.findById(tvShowId)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW));
