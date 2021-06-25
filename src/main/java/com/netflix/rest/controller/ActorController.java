@@ -83,7 +83,8 @@ public class ActorController {
 	 * @return the response entity
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Actualizamos el actor elegido", notes = "Este end point sirve para actualizar el actor elegido, para ello le pasamos como"
+	@ApiOperation(value = "Actualizamos el actor elegido", 
+			notes = "Este end point sirve para actualizar el actor elegido, para ello le pasamos como"
 			+ "parámetro el actorId")
 
 	@PostMapping("/actor/update/{actorId}/")
@@ -100,7 +101,8 @@ public class ActorController {
 	 * @return the response entity
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Borramos el actor elegido", notes = "Este end point sirve para borrar el actor elegido, para ello le pasamos como"
+	@ApiOperation(value = "Borramos el actor elegido", 
+			notes = "Este end point sirve para borrar el actor elegido, para ello le pasamos como"
 			+ "parámetro el actorId")
 
 	@PostMapping("/actor/detete/{actorId}/")
