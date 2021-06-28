@@ -16,8 +16,6 @@ import com.netflix.rest.restModel.ChapterRestModel;
 import com.netflix.rest.service.ChapterServiceI;
 import com.netflix.rest.utils.constants.ExceptionConstants;
 
-
-
 /**
  * The Class ChapterServiceImpl.
  */
@@ -36,7 +34,7 @@ public class ChapterServiceImpl implements ChapterServiceI {
 	/**
 	 * Find by tv show and number.
 	 *
-	 * @param tvshowId the tvshow id
+	 * @param tvshowId     the tvshow id
 	 * @param seasonNumber the season number
 	 * @return the list
 	 * @throws NetflixException the netflix exception
@@ -55,8 +53,8 @@ public class ChapterServiceImpl implements ChapterServiceI {
 	/**
 	 * Find by tv show and number and chapter number.
 	 *
-	 * @param tvshowId the tvshow id
-	 * @param seasonNumber the season number
+	 * @param tvshowId      the tvshow id
+	 * @param seasonNumber  the season number
 	 * @param chapterNumber the chapter number
 	 * @return the chapter rest model
 	 * @throws NetflixException the netflix exception

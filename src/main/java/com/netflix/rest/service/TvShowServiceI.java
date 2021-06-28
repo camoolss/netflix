@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.netflix.rest.exception.NetflixException;
+import com.netflix.rest.model.TvShow;
 import com.netflix.rest.restModel.TvShowRestModel;
 
 /**
@@ -37,7 +38,7 @@ public interface TvShowServiceI {
 	 * @return the tv show rest model
 	 * @throws NetflixException the netflix exception
 	 */
-	TvShowRestModel addCategory(Long tvShowId, Set<Long> listCategories) throws NetflixException;
+	TvShowRestModel addCategory(Long tvShowId, Set<Long> listCategory) throws NetflixException;
 
 	/**
 	 * Update tv shows.
@@ -66,4 +67,14 @@ public interface TvShowServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	void deleteByTvShowId(Long tvShowId) throws NetflixException;
+	
+	/**
+	 * List tv shows by ids.
+	 *
+	 * @param listTvShowIds the list tv show ids
+	 * @return the sets the
+	 * @throws NetflixException the netflix exception
+	 */
+	Set<TvShow> listTvShowById(Set<Long> listTvShowId) throws NetflixException;
+	
 }

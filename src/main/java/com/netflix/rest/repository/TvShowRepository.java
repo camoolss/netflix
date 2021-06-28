@@ -13,8 +13,8 @@ import com.netflix.rest.model.TvShow;
  */
 @Repository
 @Qualifier("TvShowRepository")
-public interface TvShowRepository  extends JpaRepository<TvShow, Long>{
-	
+public interface TvShowRepository extends JpaRepository<TvShow, Long> {
+
 	/**
 	 * Find by category id.
 	 *
@@ -23,5 +23,4 @@ public interface TvShowRepository  extends JpaRepository<TvShow, Long>{
 	 */
 	public List<TvShow> findByCategoryId(Long categoryId);
 
-	
 }

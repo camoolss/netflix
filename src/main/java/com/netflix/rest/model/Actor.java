@@ -1,12 +1,17 @@
 package com.netflix.rest.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -54,5 +59,13 @@ public class Actor implements Serializable {
 	/** The year. */
 	@Column(name = "YEAR")
 	private int year;
+	
+	/** The tv show. */
+	@JoinTable(name = "ACTORS_TVSHOWS",
+		    joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false),
+		    inverseJoinColumns = @JoinColumn(name="ACTOR_ID", nullable = false)
+		)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<TvShow> tvShow;
 
 }

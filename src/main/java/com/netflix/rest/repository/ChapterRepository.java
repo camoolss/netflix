@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.netflix.rest.model.Chapter;
+import com.netflix.rest.restModel.ChapterRestModel;
 
 /**
  * The Interface ChapterRepository.
@@ -40,4 +41,5 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 			+ " LEFT JOIN TV_SHOWS b ON a.tv_show_id=b.id " + " WHERE b.id=?1 and a.number=?2 "
 			+ " and c.number=?3", nativeQuery = true)
 	Optional<Chapter> findChapterByTvShowAndNumberAndChapterNumber(long tvShowId, int seasonNumber, int chapterNumber);
+	
 }

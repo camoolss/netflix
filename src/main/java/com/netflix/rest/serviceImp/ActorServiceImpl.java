@@ -14,9 +14,9 @@ import com.netflix.rest.model.Actor;
 import com.netflix.rest.repository.ActorRepository;
 import com.netflix.rest.restModel.ActorRestModel;
 import com.netflix.rest.service.ActorServiceI;
+import com.netflix.rest.service.TvShowServiceI;
 import com.netflix.rest.utils.constants.ExceptionConstants;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ActorServiceImpl.
  */
@@ -24,10 +24,15 @@ import com.netflix.rest.utils.constants.ExceptionConstants;
 @Qualifier("ActorServiceImpl")
 public class ActorServiceImpl implements ActorServiceI {
 
-	/** The actor repository. */
+	/** The actors repository. */
 	@Autowired
 	@Qualifier("ActorRepository")
 	private ActorRepository actorRepository;
+
+	/** The tv show service. */
+	@Autowired
+	@Qualifier("TvShowServiceImpl")
+	private TvShowServiceI tvShowService;
 
 	/** The model mapper. */
 	@Autowired
@@ -43,18 +48,18 @@ public class ActorServiceImpl implements ActorServiceI {
 	public List<ActorRestModel> listAllActor() throws NetflixException {
 
 		List<Actor> actor = actorRepository.findAll();
+
 		if (actor.isEmpty()) {
 			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_ACTOR);
 		}
-
-		return actor.stream().map(actors -> modelMapper.map(actor, ActorRestModel.class)).collect(Collectors.toList());
+		return actor.stream().map(actors -> modelMapper.map(actors, ActorRestModel.class)).collect(Collectors.toList());
 	}
 
 	/**
 	 * Find by id.
 	 *
 	 * @param actorId the actor id
-	 * @return the sets the
+	 * @return the actor rest model
 	 * @throws NetflixException the netflix exception
 	 */
 	@Override
@@ -64,39 +69,39 @@ public class ActorServiceImpl implements ActorServiceI {
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_ACTOR));
 		return modelMapper.map(actor, ActorRestModel.class);
 	}
-	
+
 	/**
 	 * Adds the actor.
 	 *
-	 * @param actor the actor
-	 * @return the actor
+	 * @param actors the actors
+	 * @return the actor rest model
 	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public ActorRestModel addActor(Actor actor) throws NetflixException {
+	public ActorRestModel addActor(ActorRestModel actors) throws NetflixException {
+		Actor actor = modelMapper.map(actors, Actor.class);
 		actorRepository.save(actor);
-		return modelMapper.map(actor, ActorRestModel.class);
+		return actors;
 	}
 
 	/**
 	 * Update actor.
 	 *
+	 * @param actorRestModel the actor rest model
 	 * @param actorId the actor id
-	 * @param actor the actor
 	 * @return the actor rest model
 	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public ActorRestModel updateActor(Actor actor, Long actorId) throws NetflixException {
+	public ActorRestModel updateActor(ActorRestModel actorRestModel, Long actorId) throws NetflixException {
 
-		Actor actors = actorRepository.findById(actorId)
+		Actor actor = actorRepository.findById(actorId)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_ACTOR));
-		String actorName = actor.getName();
-		actors.setName(actorName);
-		int actorYear = actor.getYear();
-		actors.setYear(actorYear);
-		actorRepository.save(actors);
-		return modelMapper.map(actors, ActorRestModel.class);
+		actor.setName(actorRestModel.getName());
+		actor.setId(actorRestModel.getActorId());
+		actor.setYear(actorRestModel.getYear());
+		actorRepository.save(actor);
+		return actorRestModel;
 	}
 
 	/**
@@ -106,9 +111,10 @@ public class ActorServiceImpl implements ActorServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public void deleteActorById(Long actorId) throws NetflixException {
+	public void deleteByActorId(Long actorId) throws NetflixException {
 
 		actorRepository.deleteById(actorRepository.findById(actorId)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_ACTOR)).getId());
+
 	}
 }

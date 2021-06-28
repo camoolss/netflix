@@ -99,9 +99,12 @@ public class TvShow implements Serializable {
 	@Column(name = "ADVERTISING")
 	private String advertising;
 
-	@JoinTable(name = "CATEGORY_TVSHOW", joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false),
+	@JoinTable(name = "CATEGORY_TVSHOWS", joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false),
 			inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Category> category;
+		
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy="category")
+	private List<TvShow> tvShow;
 
 }

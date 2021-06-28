@@ -2,6 +2,11 @@ package com.netflix.rest.restModel;
 
 import java.io.Serializable;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -20,26 +25,30 @@ import lombok.Setter;
 /**
  * Instantiates a new actor rest model.
  *
- * @param id the id
  * @param name the name
- * @param year the year
+ * @param age the age
+ * @param actorId the actor id
  */
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class ActorRestModel implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 18080239613616000L;
 
-	/** The id. */
-	@JsonProperty(value = "id")
-	private Long id;
-
+	/** The actor id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonProperty(value = "actorId")
+	@JsonIgnore
+	private Long actorId;
+	
 	/** The name. */
 	@JsonProperty(value = "name")
 	private String name;
 
-	/** The name. */
+	/** The age. */
 	@JsonProperty(value = "year")
 	private int year;
 

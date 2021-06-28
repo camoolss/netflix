@@ -1,5 +1,6 @@
 package com.netflix.rest.serviceImp;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ import com.netflix.rest.utils.constants.ExceptionConstants;
 @Qualifier("TvShowServiceImpl")
 public class TvShowServiceImpl implements TvShowServiceI {
 
-	/** The tv shows repository. */
+	/** The tv show repository. */
 	@Autowired
 	@Qualifier("TvShowRepository")
 	private TvShowRepository tvShowRepository;
@@ -138,5 +139,24 @@ public class TvShowServiceImpl implements TvShowServiceI {
 		tvShowRepository.deleteById(tvShowRepository.findById(tvShowId)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW)).getId());
 	}
+	
+	/**
+	 * List tv show by id.
+	 *
+	 * @param listTvShowId the list tv show id
+	 * @return the sets the
+	 * @throws NetflixException the netflix exception
+	 */
+	@Override
+	public Set<TvShow> listTvShowById(Set<Long> listTvShowId) throws NetflixException {
+		
+		Set<TvShow> tvShows = new HashSet<>(tvShowRepository.findAllById(listTvShowId));
+		
+		if (tvShows.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW);
+		}
+		return tvShows;
+	}
+
 
 }

@@ -13,7 +13,7 @@ public interface ChapterServiceI {
 	/**
 	 * Find by tv shows and number.
 	 *
-	 * @param tvshowId the tvshow id
+	 * @param tvshowId     the tvshow id
 	 * @param seasonNumber the season number
 	 * @return the list
 	 * @throws NetflixException the netflix exception
@@ -23,8 +23,8 @@ public interface ChapterServiceI {
 	/**
 	 * Find by tv shows and number and chapter number.
 	 *
-	 * @param tvshowId the tvshow id
-	 * @param seasonNumber the season number
+	 * @param tvshowId      the tvshow id
+	 * @param seasonNumber  the season number
 	 * @param chapterNumber the chapter number
 	 * @return the chapter rest model
 	 * @throws NetflixException the netflix exception
@@ -35,10 +35,11 @@ public interface ChapterServiceI {
 	/**
 	 * Update chapter name.
 	 *
-	 * @param chapterId the chapter id
+	 * @param chapterId   the chapter id
 	 * @param chapterName the chapter name
 	 * @return the chapter rest model
 	 * @throws NetflixException the netflix exception
 	 */
 	ChapterRestModel updateChapterName(Long chapterId, String chapterName) throws NetflixException;
+
 }

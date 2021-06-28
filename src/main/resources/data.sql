@@ -27,3 +27,8 @@ INSERT INTO ACTORS(ID, NAME, YEAR) VALUES
 	(2, 'Actor 2', 1982), 
 	(3, 'Actor 3', 2000),
 	(4, 'Actor 4', 1999);
+	
+INSERT INTO ACTORS_TVSHOWS(ID, TVSHOW_ID, ACTOR_ID) VALUES
+    (1,1,1),
+    (2,2,2),
+    (3,3,3);
