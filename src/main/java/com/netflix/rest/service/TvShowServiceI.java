@@ -33,7 +33,7 @@ public interface TvShowServiceI {
 	/**
 	 * Adds the category.
 	 *
-	 * @param tvShowId the tv show id
+	 * @param tvShowId       the tv show id
 	 * @param listCategories the list categories
 	 * @return the tv show rest model
 	 * @throws NetflixException the netflix exception
@@ -52,13 +52,13 @@ public interface TvShowServiceI {
 	/**
 	 * Update tv show name.
 	 *
-	 * @param tvShowId the tv show id
+	 * @param tvShowId   the tv show id
 	 * @param tvShowName the tv show name
 	 * @return the tv show rest model
 	 * @throws NetflixException the netflix exception
 	 */
 	TvShowRestModel updateTvShowName(Long tvShowId, String tvShowName) throws NetflixException;
-	
+
 	/**
 	 * Delete by tv show id.
 	 *
@@ -67,7 +67,7 @@ public interface TvShowServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	void deleteByTvShowId(Long tvShowId) throws NetflixException;
-	
+
 	/**
 	 * List tv shows by ids.
 	 *
@@ -76,5 +76,8 @@ public interface TvShowServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	Set<TvShow> listTvShowById(Set<Long> listTvShowId) throws NetflixException;
+
+	List<TvShow> listTvShowByActorid(Long actorId) throws NetflixException;
 	
+
 }

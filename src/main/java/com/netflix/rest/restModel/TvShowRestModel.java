@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.netflix.rest.model.Actor;
 import com.netflix.rest.model.Category;
 import com.netflix.rest.model.Season;
 
@@ -93,7 +94,10 @@ public class TvShowRestModel implements Serializable {
 	@Column(name = "ADVERTISING")
 	private String advertising;
 
-	@JoinTable(name = "CATEGORY_TVSHOW", joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
+	@JoinTable(name = "CATEGORY_TVSHOW", 
+			joinColumns = @JoinColumn(name = "TVSHOW_ID", nullable = false), 
+			inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Category> category;
+	
 }

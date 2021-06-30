@@ -19,6 +19,7 @@ import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.response.NetflixResponse;
 import com.netflix.rest.restModel.ActorRestModel;
 import com.netflix.rest.service.ActorServiceI;
+import com.netflix.rest.serviceImp.TvShowServiceImpl;
 import com.netflix.rest.utils.constants.CommonConstants;
 import com.netflix.rest.utils.constants.RestConstants;
 
@@ -36,8 +37,11 @@ public class ActorController {
 	/** The actor service. */
 	@Autowired
 	@Qualifier("ActorServiceImpl")
-
 	private ActorServiceI actorService;
+
+	@Autowired
+	@Qualifier("TvShowServiceImpl")
+	private TvShowServiceImpl tvShowService;
 
 	/**
 	 * List all actor.
@@ -49,8 +53,8 @@ public class ActorController {
 			notes = "Este end point sirve para mostrar todos los actores")
 	@GetMapping
 	public NetflixResponse<List<ActorRestModel>> listAllActors() throws NetflixException {
-		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),
-				CommonConstants.OK,actorService.listAllActor());
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				actorService.listAllActor());
 	}
 
 	/**
@@ -63,16 +67,17 @@ public class ActorController {
 	@ApiOperation(value = "Mostramos el actor elegido", 
 			notes = "Este end point sirve para obtener un actor en concreto, le pasamos el parámetro del actor-id")
 
-	@GetMapping("/actor/{actorId}")
-	public NetflixResponse<ActorRestModel> listActorById(@PathVariable(value="actorId") Long actorId) throws NetflixException {
-		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK),
-				CommonConstants.OK,actorService.findById(actorId));
+	@GetMapping(value = RestConstants.RESOURCE_ID)
+	public NetflixResponse<ActorRestModel> listActorById(@PathVariable(value = "actorId") Long actorId)
+			throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				actorService.findById(actorId));
 	}
 
 	@ApiOperation(value = "Añadimos un actor", 
 			notes = "Este end point sirve para añadir un actor pasandole como parámetro el actor")
 
-	@PostMapping
+	@PostMapping(value = RestConstants.RESOURCE_ADD)
 	public NetflixResponse<ActorRestModel> addActor(@RequestBody ActorRestModel actor) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.CREATED),
 				CommonConstants.SUCCESS, actorService.addActor(actor));
@@ -88,13 +93,14 @@ public class ActorController {
 	@ApiOperation(value = "Actualizamos el actor", 
 			notes = "Este end point sirve para actualizar el actor por su Id")
 
-@PatchMapping(value = RestConstants.RESOURCE_ACTOR_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
-	
-	public NetflixResponse<ActorRestModel> updateActor(@RequestBody ActorRestModel actor, Long actorId) throws NetflixException  {
-		
+	@PatchMapping(value = RestConstants.RESOURCE_ACTOR_UPDATE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	public NetflixResponse<ActorRestModel> updateActor(@RequestBody ActorRestModel actor, Long actorId)
+			throws NetflixException {
+
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				actorService.updateActor(actor, actorId));
-	}	
+	}
 
 	/**
 	 * Delete actor by id.
@@ -106,8 +112,8 @@ public class ActorController {
 	@ApiOperation(value = "Eliminamos un actor", 
 			notes = "Este end point sirve para eliminar un actor, para ello debemos pasarle como parámetro su actorId")
 
-	@DeleteMapping(value = RestConstants.RESOURCE_ID)
-	public NetflixResponse<String> deleteActorById(@PathVariable(value="id") Long actorId) throws NetflixException {
+	@DeleteMapping(value = RestConstants.RESOURCE_DELETE + RestConstants.RESOURCE_ID)
+	public NetflixResponse<String> deleteActorById(@PathVariable(value = "id") Long actorId) throws NetflixException {
 		actorService.deleteByActorId(actorId);
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK);
 	}

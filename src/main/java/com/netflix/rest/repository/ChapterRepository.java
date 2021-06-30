@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.netflix.rest.model.Chapter;
-import com.netflix.rest.restModel.ChapterRestModel;
 
 /**
  * The Interface ChapterRepository.
@@ -21,7 +20,7 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 	/**
 	 * List tv show and number.
 	 *
-	 * @param tvShowId the tv show id
+	 * @param tvShowId     the tv show id
 	 * @param seasonNumber the season number
 	 * @return the list
 	 */
@@ -32,8 +31,8 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 	/**
 	 * Find chapter by tv show and number and chapter number.
 	 *
-	 * @param tvShowId the tv show id
-	 * @param seasonNumber the season number
+	 * @param tvShowId      the tv show id
+	 * @param seasonNumber  the season number
 	 * @param chapterNumber the chapter number
 	 * @return the optional
 	 */
@@ -41,5 +40,10 @@ public interface ChapterRepository extends JpaRepository<Chapter, Long> {
 			+ " LEFT JOIN TV_SHOWS b ON a.tv_show_id=b.id " + " WHERE b.id=?1 and a.number=?2 "
 			+ " and c.number=?3", nativeQuery = true)
 	Optional<Chapter> findChapterByTvShowAndNumberAndChapterNumber(long tvShowId, int seasonNumber, int chapterNumber);
+	
+
+	@Query(value = "SELECT * FROM CHAPTERS LEFT JOIN SEASONS ON CHAPTERS.season_id = SEASONS.id "
+			+ "LEFT JOIN TV_SHOWS ON SEASONS.tv_show_id = TV_SHOWS.id WHERE TV_SHOWS.id=?1", nativeQuery = true)
+	List<Chapter> listChapterByTvShowId(long tvShowId);
 	
 }

@@ -39,7 +39,7 @@ public interface ActorServiceI {
 	/**
 	 * Update actor.
 	 *
-	 * @param actor the actor
+	 * @param actor   the actor
 	 * @param actorId the actor id
 	 * @return the actor rest model
 	 * @throws NetflixException the netflix exception
@@ -53,5 +53,6 @@ public interface ActorServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	void deleteByActorId(Long actorId) throws NetflixException;
-
+	
+	
 }

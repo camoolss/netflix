@@ -12,5 +12,5 @@ import com.netflix.rest.model.Actor;
 @Repository
 @Qualifier("ActorRepository")
 public interface ActorRepository extends JpaRepository<Actor, Long> {
-
+	
 }

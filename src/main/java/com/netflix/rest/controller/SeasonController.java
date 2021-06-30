@@ -45,7 +45,7 @@ public class SeasonController {
 			notes = "Este end point sirve para mostrar todos los capitulos de una serie, para ello le pasamos como"
 			+ "parámetro el tvShow-id de la serie")
 
-	@GetMapping("/tvShow/{tvShowId}/season")
+	@GetMapping(value = RestConstants.RESOURCE_SEASON)
 	public NetflixResponse<List<SeasonRestModel>> listSeasonById(@PathVariable(value = "tvShowId") Long seriesId)
 			throws NetflixException {
 		final TvShow tvShow = new TvShow();
@@ -66,7 +66,7 @@ public class SeasonController {
 			notes = "Este end point sirve para mostrar el número de temporadas de una serie, para ello le pasamos como"
 			+ "parámetro el tvShow-id de la serie y el season-number de la temporada")
 
-	@GetMapping("/tvShow/{tvShowId}/season/{seasonNumber}")
+	@GetMapping(value = RestConstants.RESOURCE_SEASON_NUMBER)
 	public NetflixResponse<SeasonRestModel> listTvShowAndNumber(@PathVariable Long tvShowId,
 			@PathVariable(value = "seasonNumber") int seasonNumber) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,

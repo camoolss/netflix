@@ -37,6 +37,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	@Qualifier("CategoryServiceImpl")
 	private CategoryServiceI categoryService;
 
+
 	/** The model mapper. */
 	@Autowired
 	private ModelMapper modelMapper;
@@ -77,7 +78,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	/**
 	 * Adds the category.
 	 *
-	 * @param tvShowId the tv show id
+	 * @param tvShowId     the tv show id
 	 * @param listCategory the list category
 	 * @return the tv show rest model
 	 * @throws NetflixException the netflix exception
@@ -112,7 +113,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	/**
 	 * Update tv show name.
 	 *
-	 * @param tvShowId the tv show id
+	 * @param tvShowId   the tv show id
 	 * @param tvShowName the tv show name
 	 * @return the tv show rest model
 	 * @throws NetflixException the netflix exception
@@ -126,7 +127,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 		tvShowRepository.save(tvShow);
 		return modelMapper.map(tvShow, TvShowRestModel.class);
 	}
-	
+
 	/**
 	 * Delete by id.
 	 *
@@ -135,11 +136,11 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	 */
 	@Override
 	public void deleteByTvShowId(Long tvShowId) throws NetflixException {
-		
+
 		tvShowRepository.deleteById(tvShowRepository.findById(tvShowId)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW)).getId());
 	}
-	
+
 	/**
 	 * List tv show by id.
 	 *
@@ -149,14 +150,24 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	 */
 	@Override
 	public Set<TvShow> listTvShowById(Set<Long> listTvShowId) throws NetflixException {
-		
+
 		Set<TvShow> tvShows = new HashSet<>(tvShowRepository.findAllById(listTvShowId));
-		
+
 		if (tvShows.isEmpty()) {
 			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW);
 		}
 		return tvShows;
 	}
+	
+	@Override
+	public List<TvShow> listTvShowByActorid(Long actorId) throws NetflixException {
 
+		List<TvShow> tvShow = tvShowRepository.listTvShowByActorId(actorId);
+
+		if (tvShow.isEmpty()) {
+			throw new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_ACTOR);
+		}
+		return tvShow;
+	}
 
 }

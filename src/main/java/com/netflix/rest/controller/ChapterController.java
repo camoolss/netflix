@@ -44,11 +44,12 @@ public class ChapterController {
 	 * @return the netflix response
 	 * @throws NetflixException the netflix exception
 	 */
-	@ApiOperation(value = "Listamos todos los capítulos y temporadas de una serie", notes = "Este end point sirve para listar todos los capitulos y temporadas de una serie en concreto, para ello "
+	@ApiOperation(value = "Listamos todos los capítulos y temporadas de una serie", 
+			notes = "Este end point sirve para listar todos los capitulos y temporadas de una serie en concreto, para ello "
 			+ "le pasamos por parámetro el tvShow-id de la serie y el season-number de la temporada")
 
-	@GetMapping("/tvShow/{tvShowId}/season/{seasonNumber}/chapter")
-	public NetflixResponse<List<ChapterRestModel>> listTvShowsAndNumber(@PathVariable long tvShowId,
+	@GetMapping(value = RestConstants.RESOURCE_TV_SHOW_SEASON_CHARAPTER)
+	public NetflixResponse<List<ChapterRestModel>> listTvShowAndNumber(@PathVariable long tvShowId,
 			@PathVariable(value = "seasonNumber") int seasonNumber) throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				chapterService.findByTvShowAndNumber(tvShowId, seasonNumber));
@@ -68,8 +69,8 @@ public class ChapterController {
 			+ "le pasamos por parámetro el tvShow-id de la serie, el season-number de las temporada y"
 			+ "el chapter-number de un capítulo")
 
-	@GetMapping("/tvShow/{tvShowId}/season/{seasonNumber}/chapter/{chapterNumber}")
-	public NetflixResponse<ChapterRestModel> listTvShowsAndNumberAndChapterNumber(@PathVariable long tvShowId,
+	@GetMapping(value = RestConstants.RESOURCE_SEASON_CHARAPTER)
+	public NetflixResponse<ChapterRestModel> listTvShowAndNumberAndChapterNumber(@PathVariable long tvShowId,
 			@PathVariable int seasonNumber, @PathVariable int chapterNumber) throws NetflixException {
 
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,

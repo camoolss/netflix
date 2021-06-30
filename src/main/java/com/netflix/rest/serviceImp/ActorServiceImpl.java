@@ -14,6 +14,7 @@ import com.netflix.rest.model.Actor;
 import com.netflix.rest.repository.ActorRepository;
 import com.netflix.rest.restModel.ActorRestModel;
 import com.netflix.rest.service.ActorServiceI;
+import com.netflix.rest.service.ChapterServiceI;
 import com.netflix.rest.service.TvShowServiceI;
 import com.netflix.rest.utils.constants.ExceptionConstants;
 
@@ -33,6 +34,10 @@ public class ActorServiceImpl implements ActorServiceI {
 	@Autowired
 	@Qualifier("TvShowServiceImpl")
 	private TvShowServiceI tvShowService;
+	
+	@Autowired
+	@Qualifier("ChapterServiceImpl")
+	private ChapterServiceI chapterService;
 
 	/** The model mapper. */
 	@Autowired
@@ -117,4 +122,5 @@ public class ActorServiceImpl implements ActorServiceI {
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_ACTOR)).getId());
 
 	}
+	
 }
