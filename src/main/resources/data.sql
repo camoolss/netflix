@@ -32,3 +32,10 @@ INSERT INTO ACTORS_TVSHOWS(ID, TVSHOW_ID, ACTOR_ID) VALUES
     (1,1,1),
     (2,2,2),
     (3,3,3);
+
+INSERT INTO AWARDS(ID, NAME, YEAR, tv_show_id) VALUES
+	(1, 'Premio 1', 1991, 1), 
+	(2, 'Premio 2', 1982, 2), 
+	(3, 'Premio 3', 2000, 3),
+	(4, 'Premio 4', 1999, 1);
+    

@@ -1,5 +1,6 @@
 package com.netflix.rest.utils.constants;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class RestConstants.
  */
@@ -20,9 +21,13 @@ public class RestConstants {
 	/** The Constant RESOURCE_TV_SHOW. */
 	public static final String RESOURCE_TV_SHOW = "/tvShow";
 
+	/** The Constant RESOURCE_AWARD. */
+	public static final String RESOURCE_AWARD = "/award";
 	
+	/** The Constant RESOURCE_TV_SHOW_SEASON_CHARAPTER. */
 	public static final String RESOURCE_TV_SHOW_SEASON_CHARAPTER = "/tvShow/{tvShowId}/season/{seasonNumber}/chapter";
 
+	/** The Constant RESOURCE_SEASON_CHARAPTER. */
 	public static final String RESOURCE_SEASON_CHARAPTER = "/tvShow/{tvShowId}/season/{seasonNumber}/chapter/{chapterNumber}";
 
 	/** The Constant RESOURCE_TV_SHOW_UPDATE_NAME. */
@@ -34,6 +39,7 @@ public class RestConstants {
 	/** The Constant RESOURCE_SEASON. */
 	public static final String RESOURCE_SEASON = "/tv-show/{tvShowId}/season";
 
+	/** The Constant RESOURCE_SEASON_NUMBER. */
 	public static final String RESOURCE_SEASON_NUMBER = "/tv-show/{tvShowId}/season/{seasonNumber}";
 
 	/** The Constant RESOURCE_CHAPTER. */
@@ -47,7 +53,11 @@ public class RestConstants {
 
 	/** The Constant RESOURCE_ID. */
 	public static final String RESOURCE_ID = "/{id}";
+	
+	/** The Constant RESOURCE_TVSHOW_ID. */
+	public static final String RESOURCE_TVSHOW_ID = "/{tvShowId}";
 
+	/** The Constant RESOURCE_ID_CATEGORY. */
 	public static final String RESOURCE_ID_CATEGORY = "/category/{categoryId}";
 
 	/** The Constant RESOURCE_NUMBER. */
@@ -56,8 +66,10 @@ public class RestConstants {
 	/** The Constant PARAMETER_CATEGORY. */
 	public static final String PARAMETER_CATEGORY = "category";
 	
+	/** The Constant RESOURCE_DELETE. */
 	public static final String RESOURCE_DELETE = "/detete/";
 	
+	/** The Constant RESOURCE_ADD. */
 	public static final String RESOURCE_ADD = "/add/";
 
 	/**

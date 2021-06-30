@@ -25,6 +25,9 @@ public class ExceptionConstants {
 	
 	/** The Constant MESSAGE_INEXISTENT_ACTOR. */
 	public static final String MESSAGE_INEXISTENT_ACTOR = "ACTOR INEXISTENT - ACTOR does not exist";
+	
+
+	public static final String MESSAGE_INEXISTENT_AWARD = "AWARD INEXISTENT - AWARD does not exist";
 
 	/**
 	 * Instantiates a new exception constants.
