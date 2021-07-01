@@ -27,7 +27,7 @@ import io.swagger.annotations.SwaggerDefinition;
  */
 @RestController
 @SwaggerDefinition
-@RequestMapping(RestConstants.RESOURCE_CHAPTER)
+@RequestMapping(RestConstants.RESOURCE_TV_SHOW)
 public class ChapterController {
 
 	/** The chapter service. */

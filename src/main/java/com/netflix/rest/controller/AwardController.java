@@ -41,7 +41,8 @@ public class AwardController {
 	 * @throws NetflixException the netflix exception
 	 */
 	@ApiOperation(value = "Mostramos los premios de una serie", 
-			notes = "Este end point sirve para obtener los premios de una serie en concreto, le pasamos el parámetro del tvShowId")
+			notes = "Este end point sirve para obtener los premios de una serie en concreto, "
+					+ "le pasamos el parámetro del tvShowId")
 
 	@GetMapping(value = RestConstants.RESOURCE_TVSHOW_ID)
 	public NetflixResponse<List<Award>> listActorById(@PathVariable(value = "tvShowId") Long tvShowId)

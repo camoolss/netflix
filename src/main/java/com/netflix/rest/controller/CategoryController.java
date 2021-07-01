@@ -42,7 +42,7 @@ public class CategoryController {
 	@ApiOperation(value = "Mostramos las categorias", 
 			notes = "Este end point sirve para mostrar todas las categorias")
 	@GetMapping
-	public NetflixResponse<List<CategoryRestModel>> listAllCategories() throws NetflixException {
+	public NetflixResponse<List<CategoryRestModel>> listAllCategory() throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				categoryService.listAllCategory());
 	}

@@ -26,7 +26,7 @@ import io.swagger.annotations.SwaggerDefinition;
  */
 @RestController
 @SwaggerDefinition
-@RequestMapping(RestConstants.RESOURCE_SEASON)
+@RequestMapping(RestConstants.RESOURCE_TV_SHOW)
 public class SeasonController {
 
 	/** The season service. */

@@ -25,10 +25,10 @@ public class RestConstants {
 	public static final String RESOURCE_AWARD = "/award";
 	
 	/** The Constant RESOURCE_TV_SHOW_SEASON_CHARAPTER. */
-	public static final String RESOURCE_TV_SHOW_SEASON_CHARAPTER = "/tvShow/{tvShowId}/season/{seasonNumber}/chapter";
+	public static final String RESOURCE_TV_SHOW_SEASON_CHARAPTER = "/{tvShowId}/season/{seasonNumber}/chapter";
 
 	/** The Constant RESOURCE_SEASON_CHARAPTER. */
-	public static final String RESOURCE_SEASON_CHARAPTER = "/tvShow/{tvShowId}/season/{seasonNumber}/chapter/{chapterNumber}";
+	public static final String RESOURCE_SEASON_CHARAPTER = "/{tvShowId}/season/{seasonNumber}/chapter/{chapterNumber}";
 
 	/** The Constant RESOURCE_TV_SHOW_UPDATE_NAME. */
 	public static final String RESOURCE_TV_SHOW_UPDATE_NAME = "/{tvShowId}/name/{tvShowName}";
@@ -37,19 +37,19 @@ public class RestConstants {
 	public static final String RESOURCE_ACTOR_UPDATE = "/{id}/actorId/{actorId}/name/{actorName}/year/{year}";
 
 	/** The Constant RESOURCE_SEASON. */
-	public static final String RESOURCE_SEASON = "/tv-show/{tvShowId}/season";
+	public static final String RESOURCE_SEASON = "/{tvShowId}/season";
 
 	/** The Constant RESOURCE_SEASON_NUMBER. */
-	public static final String RESOURCE_SEASON_NUMBER = "/tv-show/{tvShowId}/season/{seasonNumber}";
+	public static final String RESOURCE_SEASON_NUMBER = "/{tvShowId}/season/{seasonNumber}";
 
 	/** The Constant RESOURCE_CHAPTER. */
-	public static final String RESOURCE_CHAPTER = "/tv-show/{tvShowId}/season/{seasonNumber}/chapter";
+	public static final String RESOURCE_CHAPTER = "/{tvShowId}/season/{seasonNumber}/chapter";
 
 	/** The Constant RESOURCE_ACTOR. */
 	public static final String RESOURCE_ACTOR = "/actor";
 
 	/** The Constant RESOURCE_TV_SHOW_UPDATE_NAME. */
-	public static final String RESOURCE_CHAPTER_UPDATE_NAME = "/chapter/{chapterId}/name/{chapterName}";
+	public static final String RESOURCE_CHAPTER_UPDATE_NAME = "/{chapterId}/name/{chapterName}";
 
 	/** The Constant RESOURCE_ID. */
 	public static final String RESOURCE_ID = "/{id}";
