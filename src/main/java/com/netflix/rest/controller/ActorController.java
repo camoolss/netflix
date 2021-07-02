@@ -19,7 +19,7 @@ import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.response.NetflixResponse;
 import com.netflix.rest.restModel.ActorRestModel;
 import com.netflix.rest.service.ActorServiceI;
-import com.netflix.rest.serviceImp.TvShowServiceImpl;
+import com.netflix.rest.service.TvShowServiceI;
 import com.netflix.rest.utils.constants.CommonConstants;
 import com.netflix.rest.utils.constants.RestConstants;
 
@@ -41,7 +41,7 @@ public class ActorController {
 
 	@Autowired
 	@Qualifier("TvShowServiceImpl")
-	private TvShowServiceImpl tvShowService;
+	private TvShowServiceI tvShowService;
 
 	/**
 	 * List all actor.
@@ -68,10 +68,10 @@ public class ActorController {
 			notes = "Este end point sirve para obtener un actor en concreto, le pasamos el parámetro del actor-id")
 
 	@GetMapping(value = RestConstants.RESOURCE_ID)
-	public NetflixResponse<ActorRestModel> listActorById(@PathVariable(value = "actorId") Long actorId)
+	public NetflixResponse<ActorRestModel> listActorById(@PathVariable(value = "id") Long id)
 			throws NetflixException {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
-				actorService.findById(actorId));
+				actorService.findById(id));
 	}
 
 	@ApiOperation(value = "Añadimos un actor", 

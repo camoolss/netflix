@@ -144,6 +144,13 @@ public class TvShowController {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK);
 	}
 	
+	/**
+	 * List tv show and chapter by id.
+	 *
+	 * @param actorId the actor id
+	 * @return the netflix response
+	 * @throws NetflixException the netflix exception
+	 */
 	@ApiOperation(value = "Mostramos las series en las que aparece el actor", 
 			notes = "Este end point sirve para mostrar todas las series que aparezca el actor,"
 					+ " para ello debemos pasarle como parámetro su actorId")

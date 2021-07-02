@@ -25,7 +25,7 @@ public interface ActorServiceI {
 	 * @return the actor rest model
 	 * @throws NetflixException the netflix exception
 	 */
-	ActorRestModel findById(Long actorId) throws NetflixException;
+	ActorRestModel findById(Long id) throws NetflixException;
 
 	/**
 	 * Adds the actor.

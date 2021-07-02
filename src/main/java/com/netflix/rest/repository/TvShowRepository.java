@@ -22,13 +22,10 @@ public interface TvShowRepository extends JpaRepository<TvShow, Long> {
 	 * @param categoryId the category id
 	 * @return the list
 	 */
+	@Query(value = "SELECT * FROM TV_SHOWS WHERE TV_SHOWS.CATEGORY_ID =?1", nativeQuery = true)
 	public List<TvShow> findByCategoryId(Long categoryId);
-
-	@Query(value = "SELECT * FROM TV_SHOWS LEFT JOIN ACTORS_TVSHOWS ON"
-			+ " TV_SHOWS.ID = ACTORS_TVSHOWS.TVSHOW_ID WHERE ACTORS_TVSHOWS.ACTOR_ID =?1", nativeQuery = true)
-	List<TvShow> listTvShowByActorId(long actorId);
 	
-	@Query(value = "SELECT TV_SHOWS.ID  FROM TV_SHOWS LEFT JOIN ACTORS_TVSHOWS ON"
+	@Query(value = "SELECT TV_SHOWS.ID FROM TV_SHOWS LEFT JOIN ACTORS_TVSHOWS ON"
 			+ " TV_SHOWS.ID = ACTORS_TVSHOWS.TVSHOW_ID WHERE ACTORS_TVSHOWS.ACTOR_ID =?1", nativeQuery = true)
 	List<Long> listTvShowIdByActorId(long actorId);
 	

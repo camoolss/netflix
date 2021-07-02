@@ -68,9 +68,9 @@ public class ActorServiceImpl implements ActorServiceI {
 	 * @throws NetflixException the netflix exception
 	 */
 	@Override
-	public ActorRestModel findById(Long actorId) throws NetflixException {
+	public ActorRestModel findById(Long id) throws NetflixException {
 
-		Actor actor = actorRepository.findById(actorId)
+		Actor actor = actorRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_ACTOR));
 		return modelMapper.map(actor, ActorRestModel.class);
 	}

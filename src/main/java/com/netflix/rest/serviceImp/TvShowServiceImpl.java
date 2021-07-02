@@ -12,10 +12,13 @@ import org.springframework.stereotype.Service;
 
 import com.netflix.rest.exception.NetflixException;
 import com.netflix.rest.exception.NotFoundException;
+import com.netflix.rest.model.Award;
 import com.netflix.rest.model.Category;
 import com.netflix.rest.model.TvShow;
+import com.netflix.rest.repository.AwardRepository;
 import com.netflix.rest.repository.TvShowRepository;
 import com.netflix.rest.restModel.TvShowRestModel;
+import com.netflix.rest.service.AwardServiceI;
 import com.netflix.rest.service.CategoryServiceI;
 import com.netflix.rest.service.TvShowServiceI;
 import com.netflix.rest.utils.constants.ExceptionConstants;
@@ -32,11 +35,18 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	@Qualifier("TvShowRepository")
 	private TvShowRepository tvShowRepository;
 
+	@Autowired
+	@Qualifier("AwardRepository")
+	private AwardRepository awardRepository;
+
 	/** The categories repository. */
 	@Autowired
 	@Qualifier("CategoryServiceImpl")
 	private CategoryServiceI categoryService;
 
+	@Autowired
+	@Qualifier("AwardServiceImpl")
+	private AwardServiceI awardService;
 
 	/** The model mapper. */
 	@Autowired
@@ -136,9 +146,16 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	 */
 	@Override
 	public void deleteByTvShowId(Long tvShowId) throws NetflixException {
+		
+		TvShow tvShow = tvShowRepository.findById(tvShowId)
+				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW));
+		
+		tvShowRepository.delete(tvShow);
+		
+		List<Award> award = awardService.listAwardByTvShowId(tvShowId);
 
-		tvShowRepository.deleteById(tvShowRepository.findById(tvShowId)
-				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW)).getId());
+		awardRepository.deleteAll(award);
+
 	}
 
 	/**
@@ -158,7 +175,7 @@ public class TvShowServiceImpl implements TvShowServiceI {
 		}
 		return tvShows;
 	}
-	
+
 	@Override
 	public List<TvShow> listTvShowByActorid(Long actorId) throws NetflixException {
 
