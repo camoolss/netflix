@@ -103,6 +103,14 @@ public class TvShow implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID", nullable = false))
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Category> category;
+	
+	/** The tv show. */
+	@JoinTable(name = "ACTORS_TVSHOWS",
+		    joinColumns = @JoinColumn(name = "ACTOR_ID", nullable = false),
+		    inverseJoinColumns = @JoinColumn(name="TVSHOW_ID", nullable = false)
+		)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Actor> actor;
 		
 	@ManyToMany(cascade = CascadeType.ALL, mappedBy="category")
 	private List<TvShow> tvShow;

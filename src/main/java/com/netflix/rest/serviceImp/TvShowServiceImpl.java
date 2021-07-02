@@ -147,15 +147,15 @@ public class TvShowServiceImpl implements TvShowServiceI {
 	@Override
 	public void deleteByTvShowId(Long tvShowId) throws NetflixException {
 		
+		List<Award> award = awardService.listAwardByTvShowId(tvShowId);
+
+		awardRepository.deleteAll(award);
+		
 		TvShow tvShow = tvShowRepository.findById(tvShowId)
 				.orElseThrow(() -> new NotFoundException(ExceptionConstants.MESSAGE_INEXISTENT_TVSHOW));
 		
 		tvShowRepository.delete(tvShow);
 		
-		List<Award> award = awardService.listAwardByTvShowId(tvShowId);
-
-		awardRepository.deleteAll(award);
-
 	}
 
 	/**
